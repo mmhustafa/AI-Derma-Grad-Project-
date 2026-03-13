@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>History Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2dd4bf","primary-bg": "#0f172a","secondary-bg": "#1e293b","tertiary-bg": "#334155","success": "#34d399","warning": "#fb923c","danger": "#f87171","accent-blue": "#3b82f6",},
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-primary-bg font-display text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex flex-col sticky top-0 z-10 bg-primary-bg/95 backdrop-blur-sm border-b border-slate-800">
+<div class="flex items-center p-4">
+<div class="flex size-10 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-2xl text-slate-300 hover:text-white transition-colors">arrow_back_ios_new</span>
+</div>
+<h1 class="text-white text-lg font-semibold leading-tight tracking-[-0.015em] flex-1 text-center -ml-10">History</h1>
+</div>
+<div class="flex items-center justify-between gap-3 p-4 pt-2">
+<button class="flex-1 rounded-full bg-primary/20 hover:bg-primary/25 transition-colors px-4 py-2.5 text-center text-sm font-semibold text-primary border border-primary/20">All</button>
+<button class="flex-1 rounded-full bg-tertiary-bg hover:bg-slate-600 transition-colors px-4 py-2.5 text-center text-sm font-medium text-slate-300">AI Result</button>
+<button class="flex-1 rounded-full bg-tertiary-bg hover:bg-slate-600 transition-colors px-4 py-2.5 text-center text-sm font-medium text-slate-300">Question</button>
+</div>
+</div>
+<div class="flex flex-col gap-4 px-4 pb-4 pt-2">
+<div class="flex cursor-pointer items-center gap-4 bg-secondary-bg hover:bg-slate-700/50 transition-colors p-4 rounded-xl shadow-lg border border-slate-700/50">
+<div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-blue/15">
+<span class="material-symbols-outlined text-accent-blue text-2xl">document_scanner</span>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<p class="text-white text-base font-semibold leading-normal truncate">Melanoma</p>
+<div class="flex items-center gap-2 mt-0.5">
+<p class="text-success text-sm font-medium leading-normal">92% Confidence</p>
+<span class="size-1 rounded-full bg-slate-500"></span>
+<p class="text-slate-400 text-sm font-normal leading-normal">AI Result</p>
+</div>
+</div>
+<div class="shrink-0 text-right flex flex-col items-end justify-center">
+<p class="text-slate-400 text-sm font-medium leading-normal whitespace-nowrap">Oct 26</p>
+<p class="text-slate-500 text-xs font-normal leading-normal whitespace-nowrap">10:15 AM</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+</div>
+<div class="flex cursor-pointer items-center gap-4 bg-secondary-bg hover:bg-slate-700/50 transition-colors p-4 rounded-xl shadow-lg border border-slate-700/50">
+<div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-blue/15">
+<span class="material-symbols-outlined text-accent-blue text-2xl">document_scanner</span>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<p class="text-white text-base font-semibold leading-normal truncate">Psoriasis</p>
+<div class="flex items-center gap-2 mt-0.5">
+<p class="text-slate-400 text-sm font-normal leading-normal">Question</p>
+</div>
+</div>
+<div class="shrink-0 text-right flex flex-col items-end justify-center">
+<p class="text-slate-400 text-sm font-medium leading-normal whitespace-nowrap">Oct 24</p>
+<p class="text-slate-500 text-xs font-normal leading-normal whitespace-nowrap">08:45 PM</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+</div>
+<div class="flex cursor-pointer items-center gap-4 bg-secondary-bg hover:bg-slate-700/50 transition-colors p-4 rounded-xl shadow-lg border border-slate-700/50">
+<div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-blue/15">
+<span class="material-symbols-outlined text-accent-blue text-2xl">document_scanner</span>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<p class="text-white text-base font-semibold leading-normal truncate">Eczema</p>
+<div class="flex items-center gap-2 mt-0.5">
+<p class="text-warning text-sm font-medium leading-normal">85% Confidence</p>
+<span class="size-1 rounded-full bg-slate-500"></span>
+<p class="text-slate-400 text-sm font-normal leading-normal">AI Result</p>
+</div>
+</div>
+<div class="shrink-0 text-right flex flex-col items-end justify-center">
+<p class="text-slate-400 text-sm font-medium leading-normal whitespace-nowrap">Oct 20</p>
+<p class="text-slate-500 text-xs font-normal leading-normal whitespace-nowrap">09:30 AM</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+</div>
+<div class="flex cursor-pointer items-center gap-4 bg-secondary-bg hover:bg-slate-700/50 transition-colors p-4 rounded-xl shadow-lg border border-slate-700/50">
+<div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-blue/15">
+<span class="material-symbols-outlined text-accent-blue text-2xl">document_scanner</span>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<p class="text-white text-base font-semibold leading-normal truncate">Acne Vulgaris</p>
+<div class="flex items-center gap-2 mt-0.5">
+<p class="text-danger text-sm font-medium leading-normal">65% Confidence</p>
+<span class="size-1 rounded-full bg-slate-500"></span>
+<p class="text-slate-400 text-sm font-normal leading-normal">AI Result</p>
+</div>
+</div>
+<div class="shrink-0 text-right flex flex-col items-end justify-center">
+<p class="text-slate-400 text-sm font-medium leading-normal whitespace-nowrap">Oct 18</p>
+<p class="text-slate-500 text-xs font-normal leading-normal whitespace-nowrap">11:05 AM</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login Screen - AI-Derma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4a8fd3",
+              "background-light": "#f6f7f8",
+              "background-dark": "#13191f",
+              "text-light": "#121417",
+              "text-dark": "#f0f2f4",
+              "subtle-text-light": "#677583",
+              "subtle-text-dark": "#a0a7b0",
+              "border-light": "#dde0e4",
+              "border-dark": "#343a40"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col items-center bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden p-4">
+<div class="flex w-full max-w-md flex-col items-center justify-center pt-16">
+<!-- Logo -->
+<div class="flex h-16 w-16 items-center justify-center rounded-xl bg-primary/20 mb-6">
+<span class="material-symbols-outlined text-4xl text-primary">health_and_safety</span>
+</div>
+<!-- Headline and Body Text -->
+<h1 class="text-text-light dark:text-text-dark tracking-light text-[32px] font-bold leading-tight text-center pb-2">Welcome Back</h1>
+<p class="text-subtle-text-light dark:text-subtle-text-dark text-base font-normal leading-normal text-center pb-8">Sign in to your AI-Derma account</p>
+<!-- Form -->
+<div class="flex w-full flex-col gap-4">
+<!-- Email TextField -->
+<label class="flex flex-col flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">Email</p>
+<div class="relative flex w-full flex-1 items-center">
+<span class="material-symbols-outlined absolute left-4 text-subtle-text-light dark:text-subtle-text-dark">mail</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-white dark:bg-background-dark focus:border-primary h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark pl-12 pr-4 text-base font-normal leading-normal" placeholder="Enter your email address" type="email" value=""/>
+</div>
+</label>
+<!-- Password TextField -->
+<label class="flex flex-col flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">Password</p>
+<div class="relative flex w-full flex-1 items-center">
+<span class="material-symbols-outlined absolute left-4 text-subtle-text-light dark:text-subtle-text-dark">lock</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-white dark:bg-background-dark focus:border-primary h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark pl-12 pr-12 text-base font-normal leading-normal" placeholder="Enter your password" type="password" value=""/>
+<button class="absolute right-0 flex h-full w-12 items-center justify-center text-subtle-text-light dark:text-subtle-text-dark">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</label>
+</div>
+<!-- Forgot Password Link -->
+<div class="w-full text-right mt-3">
+<a class="text-primary text-sm font-medium leading-normal underline" href="#">Forgot Password?</a>
+</div>
+<!-- Buttons -->
+<div class="flex w-full flex-col gap-4 mt-8">
+<!-- Primary CTA Button -->
+<button class="flex h-14 w-full items-center justify-center rounded-xl bg-primary px-6 text-base font-medium text-white shadow-sm transition-colors hover:bg-primary/90">Login</button>
+<!-- Tertiary CTA -->
+<button class="flex h-14 w-full items-center justify-center rounded-xl border border-border-light dark:border-border-dark bg-transparent px-6 text-base font-medium text-text-light dark:text-text-dark shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-white/10">Continue as Guest</button>
+</div>
+<!-- Sign up link -->
+<div class="mt-12 text-center">
+<p class="text-subtle-text-light dark:text-subtle-text-dark text-sm font-normal">Don't have an account? <a class="font-medium text-primary underline" href="#">Sign Up</a></p>
+</div>
+</div>
+</div>
+</body></html>

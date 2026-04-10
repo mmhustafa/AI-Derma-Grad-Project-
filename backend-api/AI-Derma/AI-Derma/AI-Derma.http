@@ -1,0 +1,6 @@
+@AI_Derma_HostAddress = http://localhost:5232
+
+GET {{AI_Derma_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

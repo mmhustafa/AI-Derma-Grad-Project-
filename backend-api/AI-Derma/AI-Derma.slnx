@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AI-Derma.Core/AI-Derma.Core.csproj" />
+  <Project Path="AI-Derma.Infrastructure/AI-Derma.Infrastructure.csproj" />
+  <Project Path="AI-Derma/AI-Derma.API.csproj" />
+</Solution>

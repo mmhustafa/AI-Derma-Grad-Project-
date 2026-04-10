@@ -24,4 +24,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AI-Derma.Infrastructure\AI-Derma.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

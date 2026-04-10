@@ -1098,6 +1098,36 @@
         "build": {
           "buildTransitive/net8.0/_._": {}
         }
+      },
+      "AI-Derma.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.5",
+          "Microsoft.EntityFrameworkCore": "10.0.5"
+        },
+        "compile": {
+          "bin/placeholder/AI-Derma.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AI-Derma.Core.dll": {}
+        }
+      },
+      "AI-Derma.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AI-Derma.Core": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.5",
+          "Microsoft.EntityFrameWorkcore.sqlserver": "10.0.5",
+          "Microsoft.EntityFrameworkCore": "10.0.5"
+        },
+        "compile": {
+          "bin/placeholder/AI-Derma.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AI-Derma.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -3224,10 +3254,21 @@
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "AI-Derma.Core/1.0.0": {
+      "type": "project",
+      "path": "../AI-Derma.Core/AI-Derma.Core.csproj",
+      "msbuildProject": "../AI-Derma.Core/AI-Derma.Core.csproj"
+    },
+    "AI-Derma.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../AI-Derma.Infrastructure/AI-Derma.Infrastructure.csproj",
+      "msbuildProject": "../AI-Derma.Infrastructure/AI-Derma.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "AI-Derma.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.5",
       "Microsoft.AspNetCore.OpenApi >= 10.0.5",
@@ -3268,7 +3309,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

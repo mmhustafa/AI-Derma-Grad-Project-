@@ -21,5 +21,6 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public ICollection<SymptomAnswer> SymptomAnswers { get; set; }
+        public Feedback Feedback { get; set; }
     }
 }

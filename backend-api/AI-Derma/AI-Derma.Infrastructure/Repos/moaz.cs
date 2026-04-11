@@ -4,7 +4,8 @@ using System.Text;
 
 namespace AI_Derma.Infrastructure.Repos
 {
-    public class MetadataRepository
+    internal class moaz
     {
+        //
     }
 }

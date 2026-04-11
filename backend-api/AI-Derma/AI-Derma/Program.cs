@@ -1,3 +1,5 @@
+using AI_Derma;
+using AI_Derma.Core.Interfaces;
 using AI_Derma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<DermaDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IMetadata, MetadataRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

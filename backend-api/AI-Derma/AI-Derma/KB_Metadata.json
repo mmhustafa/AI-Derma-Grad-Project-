@@ -1,0 +1,203 @@
+{
+  "KnowledgeBase": {
+    "KB_START": {
+      "text": "Main Menu: Please choose your symptom type",
+      "options": [
+        {
+          "val": "type:0-1",
+          "label": "Skin rashes WITHOUT fever"
+        },
+        {
+          "val": "type:0-2",
+          "label": "Skin rashes WITH fever"
+        },
+        {
+          "val": "type:0-3",
+          "label": "Skin infections"
+        }
+      ]
+    },
+    "BRANCH_A": {
+      "text": "Branch A: Choose the description that best fits your condition",
+      "options": [
+        {
+          "val": "type:0-1-1",
+          "label": "Red patches, painful joints, pitted nails, or dandruff"
+        },
+        {
+          "val": "type:0-1-2",
+          "label": "Blackheads/whiteheads, oily skin, pimples or cysts"
+        },
+        {
+          "val": "type:0-1-3",
+          "label": "Characteristic fish-scale rash"
+        }
+      ]
+    },
+    "A_PSORIASIS_CHECK": {
+      "text": "Detailed Check: Do the patches develop white-silvery scales and stiffness?",
+      "options": [
+        {
+          "val": "type:0-1-1-1",
+          "label": "Yes, I have silvery scales (Psoriasis symptoms)"
+        },
+        {
+          "val": "type:0-1-1-2",
+          "label": "No, it's more of oozing blisters (Eczema symptoms)"
+        }
+      ]
+    },
+    "BRANCH_B": {
+      "text": "Branch B: Choose the symptoms you are experiencing with fever",
+      "options": [
+        {
+          "val": "type:0-2-1",
+          "label": "Severe headache, stiff neck, and confusion"
+        },
+        {
+          "val": "type:0-2-2",
+          "label": "Cough, runny nose, and spreading itchy rash"
+        }
+      ]
+    },
+    "MENINGITIS_CHECK": {
+      "text": "Urgent Check: Do you have a stiff neck along with the headache and rash?",
+      "options": [
+        {
+          "val": "type:0-2-1-1",
+          "label": "Yes"
+        },
+        {
+          "val": "type:0-2-2",
+          "label": "No (Check for Measles instead)"
+        }
+      ]
+    },
+    "MEASLES_SCARLET_CHECK": {
+      "text": "Infection Check: Do you have grayish bumps in the mouth (Koplik spots)?",
+      "options": [
+        {
+          "val": "type:0-2-2-1",
+          "label": "Yes (Measles symptoms)"
+        },
+        {
+          "val": "type:0-2-2-2",
+          "label": "No (Check for Scarlet Fever symptoms)"
+        }
+      ]
+    },
+    "BRANCH_C": {
+      "text": "Branch C: Skin Infections",
+      "options": [
+        {
+          "val": "type:0-3-1",
+          "label": "Red, painful lump following an insect bite"
+        },
+        {
+          "val": "type:0-3-2",
+          "label": "Firm round lumps with rough surface and black dots"
+        }
+      ]
+    }
+  },
+  "ConfirmationQuestions": {
+    "Psoriasis": [
+      {
+        "QuestionCode": "CONF_PS_SCALES",
+        "text": "Do you notice silvery-white scales on the red patches?"
+      },
+      {
+        "QuestionCode": "CONF_PS_JOINTS",
+        "text": "Do you experience any stiffness or pain in your joints?"
+      },
+      {
+        "QuestionCode": "CONF_PS_NAILS",
+        "text": "Are there any pits or changes in your fingernails or toenails?"
+      }
+    ],
+    "Eczema": [
+      {
+        "QuestionCode": "CONF_EC_ITCH",
+        "text": "Is the itching intense, especially at night?"
+      },
+      {
+        "QuestionCode": "CONF_EC_OOZE",
+        "text": "Do the blisters ooze fluid or crust over when scratched?"
+      },
+      {
+        "QuestionCode": "CONF_EC_CHRONIC",
+        "text": "Does the skin feel thick or leathery in the affected areas?"
+      }
+    ],
+    "Acne": [
+      {
+        "QuestionCode": "CONF_AC_OILY",
+        "text": "Is your skin notably oily, especially in the T-zone?"
+      },
+      {
+        "QuestionCode": "CONF_AC_CYSTS",
+        "text": "Do you have deep, painful lumps (cysts) under the skin?"
+      }
+    ],
+    "Ichthyosis": [
+      {
+        "QuestionCode": "CONF_IC_SCALES",
+        "text": "Is the skin extremely dry and covered in small, scale-like patterns?"
+      },
+      {
+        "QuestionCode": "CONF_IC_CHILD",
+        "text": "Has this condition been present since very early childhood?"
+      }
+    ],
+    "Meningitis": [
+      {
+        "QuestionCode": "CONF_MG_NECK",
+        "text": "Is it very difficult or painful to touch your chin to your chest?"
+      },
+      {
+        "QuestionCode": "CONF_MG_LIGHT",
+        "text": "Does bright light hurt your eyes?"
+      }
+    ],
+    "Measles": [
+      {
+        "QuestionCode": "CONF_MS_KOPLIK",
+        "text": "Are there tiny white/gray spots inside your cheeks?"
+      },
+      {
+        "QuestionCode": "CONF_MS_COUGH",
+        "text": "Do you have a persistent dry cough and red, watery eyes?"
+      }
+    ],
+    "Scarlet Fever": [
+      {
+        "QuestionCode": "CONF_SF_TONGUE",
+        "text": "Does your tongue look red and bumpy (strawberry tongue)?"
+      },
+      {
+        "QuestionCode": "CONF_SF_SAND",
+        "text": "Does the rash feel rough like sandpaper?"
+      }
+    ],
+    "Insect Bite": [
+      {
+        "QuestionCode": "CONF_IB_SUDDEN",
+        "text": "Did the redness and swelling appear suddenly after being outdoors?"
+      },
+      {
+        "QuestionCode": "CONF_IB_STING",
+        "text": "Is there a visible puncture mark or stinger in the center?"
+      }
+    ],
+    "Warts": [
+      {
+        "QuestionCode": "CONF_WT_ROUGH",
+        "text": "Is the surface of the lump rough and grainy to the touch?"
+      },
+      {
+        "QuestionCode": "CONF_WT_DOTS",
+        "text": "Can you see tiny black dots (clotted blood vessels) inside the lump?"
+      }
+    ]
+  }
+}

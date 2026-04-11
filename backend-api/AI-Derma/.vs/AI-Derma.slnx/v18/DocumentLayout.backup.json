@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{86D311F8-D04A-C0C0-B9A1-94D1662CC486}|AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.infrastructure\\data\\dermadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{86D311F8-D04A-C0C0-B9A1-94D1662CC486}|AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj|solutionrelative:ai-derma.infrastructure\\data\\dermadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -50,11 +54,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "20260410140744_updateinit.cs",
+              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs",
+              "RelativeDocumentMoniker": "AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs",
+              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs",
+              "RelativeToolTip": "AI-Derma.Infrastructure\\Migrations\\20260410140744_updateinit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T14:07:44.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "20260410135825_init.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Migrations\\20260410135825_init.cs",
               "RelativeDocumentMoniker": "AI-Derma.Infrastructure\\Migrations\\20260410135825_init.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "AI-Derma.Infrastructure",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj",
               "RelativeDocumentMoniker": "AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj",
@@ -92,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "DermaDbContext.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Data\\DermaDbContext.cs",
               "RelativeDocumentMoniker": "AI-Derma.Infrastructure\\Data\\DermaDbContext.cs",
@@ -105,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Program.cs",
               "RelativeDocumentMoniker": "AI-Derma\\Program.cs",
@@ -118,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Feedback.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\Feedback.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\Feedback.cs",
@@ -131,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SymptomAnswer.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\SymptomAnswer.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\SymptomAnswer.cs",
@@ -143,7 +160,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Disease.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\Disease.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\Disease.cs",
@@ -155,7 +172,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "DiagnosticResult.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\DiagnosticResult.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\DiagnosticResult.cs",
@@ -168,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\ApplicationUser.cs",
@@ -180,7 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\appsettings.json",
               "RelativeDocumentMoniker": "AI-Derma\\appsettings.json",

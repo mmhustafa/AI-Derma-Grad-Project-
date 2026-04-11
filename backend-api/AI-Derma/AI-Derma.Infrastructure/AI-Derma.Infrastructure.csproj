@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repos\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AI-Derma.Core\AI-Derma.Core.csproj" />
   </ItemGroup>
 

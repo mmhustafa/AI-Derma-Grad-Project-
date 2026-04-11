@@ -6,11 +6,11 @@ import expert_logic
 app = FastAPI()
 
 class DiagnosisRequest(BaseModel):
-    facts: List[str] # لستة الأكواد اللي الموبايل مجمعها
+    facts: List[str] 
 
 @app.post("/kb/next-step")
 async def next_step(request: DiagnosisRequest):
-    # استدعاء المنطق البرمجي
+    
     result = expert_logic.get_next_step(request.facts)
     
     if result["type"] == "error":

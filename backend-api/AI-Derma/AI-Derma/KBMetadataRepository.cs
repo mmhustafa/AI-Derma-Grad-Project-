@@ -4,13 +4,13 @@ using AI_Derma.Core.JsonModels;
 
 namespace AI_Derma
 {
-    public class MetadataRepository : IMetadata
+    public class KBMetadataRepository : IKBMetadata
     {
 
       
         private readonly IWebHostEnvironment _env;
 
-        public MetadataRepository(IWebHostEnvironment env)
+        public KBMetadataRepository(IWebHostEnvironment env)
         {
             _env = env;
         }

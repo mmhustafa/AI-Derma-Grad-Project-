@@ -2,19 +2,21 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AI_Derma.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 namespace AI_Derma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MetadataController : ControllerBase
     {
-        private readonly IMetadata _metadataService;
+        private readonly IKBMetadata _metadataService;
 
-        public MetadataController(IMetadata metadataService)
+        public MetadataController(IKBMetadata metadataService)
         {
             _metadataService = metadataService;
         }
 
+        [Authorize]
         [HttpGet("knowledge-base")]
         public IActionResult GetKnowledgeBase()
         {

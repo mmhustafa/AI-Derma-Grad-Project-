@@ -4,7 +4,10 @@ using System.Text;
 
 namespace AI_Derma.Core.DTOs
 {
-    internal class Class1
+    public class LoginDTO
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
+
     }
 }

@@ -5,7 +5,7 @@ using AI_Derma.Core.JsonModels;
 
 namespace AI_Derma.Core.Interfaces
 {
-    public interface IMetadata
+    public interface IKBMetadata
     {
         QuestionsMetadata questionsMetadata(); 
     }

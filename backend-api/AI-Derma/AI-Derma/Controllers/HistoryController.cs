@@ -1,8 +1,11 @@
 ﻿using AI_Derma.Core.Interfaces;
+using AI_Derma.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AI_Derma.Controllers
 {
@@ -12,14 +15,21 @@ namespace AI_Derma.Controllers
     public class HistoryController : ControllerBase
     {
         IUnitofWork unitofWork;
-        public HistoryController(IUnitofWork _unitofWork)
+        UserManager<ApplicationUser> userManager;
+        public HistoryController(IUnitofWork _unitofWork, UserManager<ApplicationUser> _usermanager)
         {
             unitofWork = _unitofWork;
+            userManager = _usermanager;
         }
-        [HttpGet("diagnostics/{userid}")]
-        public async Task<IActionResult> GetDiagnosticHistory(string userid)
+
+        [HttpGet("diagnostics")]
+        public async Task<IActionResult> GetDiagnosticHistory()
         {
-            var results=await unitofWork.DiagnosticResults.GetByUserIdAsync(userid);
+            var user = await userManager.GetUserAsync(User);
+
+            //var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var results=await unitofWork.DiagnosticResults.GetByUserIdAsync(user.Id);
 
             if (results == null || !results.Any())
             {

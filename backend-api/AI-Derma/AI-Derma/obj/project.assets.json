@@ -3279,23 +3279,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mustafa\\.nuget\\packages\\": {},
+    "C:\\Users\\moaza\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\AI-Derma.API.csproj",
+      "projectUniqueName": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\AI-Derma.API.csproj",
       "projectName": "AI-Derma.API",
-      "projectPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\AI-Derma.API.csproj",
-      "packagesPath": "C:\\Users\\mustafa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\obj\\",
+      "projectPath": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\AI-Derma.API.csproj",
+      "packagesPath": "C:\\Users\\moaza\\.nuget\\packages\\",
+      "outputPath": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mustafa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\moaza\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3308,10 +3308,11 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj"
+            "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj": {
+              "projectPath": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj"
             }
           }
         }
@@ -3330,6 +3331,7 @@
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": {

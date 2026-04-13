@@ -1,34 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\",
+  "WorkspaceRootPath": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\controllers\\historycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\controllers\\historycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{86D311F8-D04A-C0C0-B9A1-94D1662CC486}|AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.infrastructure\\repos\\diagnosticresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86D311F8-D04A-C0C0-B9A1-94D1662CC486}|AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj|solutionrelative:ai-derma.infrastructure\\repos\\diagnosticresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\interfaces\\idiagnosticresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|solutionrelative:ai-derma.core\\interfaces\\idiagnosticresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|solutionrelative:ai-derma.core\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\controllers\\metadatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\controllers\\metadatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\controllers\\metadatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|solutionrelative:ai-derma.core\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|d:\\first mvc project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma.core\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C431B0B-29D9-E219-AE6B-7FCF51768671}|AI-Derma.Core\\AI-Derma.Core.csproj|solutionrelative:ai-derma.core\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|c:\\users\\mustafa\\desktop\\grad-project\\ai-derma-grad-project-\\backend-api\\ai-derma\\ai-derma\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F4FB2C8E-9B0D-1977-B9C9-C3164A6B048D}|AI-Derma\\AI-Derma.API.csproj|solutionrelative:ai-derma\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,8 +50,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -54,11 +70,50 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HistoryController.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\HistoryController.cs",
+              "RelativeDocumentMoniker": "AI-Derma\\Controllers\\HistoryController.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\HistoryController.cs",
+              "RelativeToolTip": "AI-Derma\\Controllers\\HistoryController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAqwCIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T12:08:20.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IDiagnosticResultRepository.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Interfaces\\IDiagnosticResultRepository.cs",
+              "RelativeDocumentMoniker": "AI-Derma.Core\\Interfaces\\IDiagnosticResultRepository.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Interfaces\\IDiagnosticResultRepository.cs",
+              "RelativeToolTip": "AI-Derma.Core\\Interfaces\\IDiagnosticResultRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T12:06:57.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "DiagnosticResultRepository.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Repos\\DiagnosticResultRepository.cs",
+              "RelativeDocumentMoniker": "AI-Derma.Infrastructure\\Repos\\DiagnosticResultRepository.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\Repos\\DiagnosticResultRepository.cs",
+              "RelativeToolTip": "AI-Derma.Infrastructure\\Repos\\DiagnosticResultRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T11:55:41.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "MetadataController.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\MetadataController.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\MetadataController.cs",
               "RelativeDocumentMoniker": "AI-Derma\\Controllers\\MetadataController.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\MetadataController.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\MetadataController.cs",
               "RelativeToolTip": "AI-Derma\\Controllers\\MetadataController.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -66,11 +121,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "RegisterDTO.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\RegisterDTO.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\RegisterDTO.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\DTOs\\RegisterDTO.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\RegisterDTO.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\RegisterDTO.cs",
               "RelativeToolTip": "AI-Derma.Core\\DTOs\\RegisterDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -78,11 +133,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "LoginDTO.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\LoginDTO.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\LoginDTO.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\DTOs\\LoginDTO.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\LoginDTO.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\DTOs\\LoginDTO.cs",
               "RelativeToolTip": "AI-Derma.Core\\DTOs\\LoginDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -90,37 +145,36 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\AuthController.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "AI-Derma\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Controllers\\AuthController.cs",
               "RelativeToolTip": "AI-Derma\\Controllers\\AuthController.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAgwDAAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T15:17:21.089Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-11T15:17:21.089Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Program.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Program.cs",
               "RelativeDocumentMoniker": "AI-Derma\\Program.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Program.cs*",
-              "RelativeToolTip": "AI-Derma\\Program.cs*",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAqwBIAAAAAAAAAAAAAAA==",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\Program.cs",
+              "RelativeToolTip": "AI-Derma\\Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAswC8AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-10T13:50:29.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "ApplicationUser.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\ApplicationUser.cs",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "AI-Derma.Core\\Models\\ApplicationUser.cs",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\ApplicationUser.cs",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Core\\Models\\ApplicationUser.cs",
               "RelativeToolTip": "AI-Derma.Core\\Models\\ApplicationUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -128,15 +182,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\appsettings.json",
+              "DocumentMoniker": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\appsettings.json",
               "RelativeDocumentMoniker": "AI-Derma\\appsettings.json",
-              "ToolTip": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\appsettings.json",
+              "ToolTip": "D:\\first MVC project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma\\appsettings.json",
               "RelativeToolTip": "AI-Derma\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-09T13:02:31.87Z"
+              "WhenOpened": "2026-04-09T13:02:31.87Z",
+              "EditorCaption": ""
             }
           ]
         }

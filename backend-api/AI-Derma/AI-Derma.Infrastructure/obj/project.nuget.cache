@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rsu8qWlMlsg=",
+  "dgSpecHash": "6fw3+7iVD2w=",
   "success": true,
   "projectFilePath": "C:\\Users\\mustafa\\Desktop\\grad-project\\AI-Derma-Grad-Project-\\backend-api\\AI-Derma\\AI-Derma.Infrastructure\\AI-Derma.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,7 @@
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.3.9\\microsoft.aspnetcore.hosting.abstractions.2.3.9.nupkg.sha512",
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.3.0\\microsoft.aspnetcore.hosting.server.abstractions.2.3.0.nupkg.sha512",
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.3.0\\microsoft.aspnetcore.http.abstractions.2.3.0.nupkg.sha512",
-    "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
+    "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\10.0.5\\microsoft.aspnetcore.identity.entityframeworkcore.10.0.5.nupkg.sha512",
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\mustafa\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",

@@ -19,5 +19,12 @@ namespace AI_Derma.Infrastructure.Repos
                 .Include(d => d.Disease)
                 .ToListAsync();
         }
+      
+        public async Task<DiagnosticResult> GetbyDiagnosticResultIdAsync(int id)
+        {
+            return await _context.DiagnosticResults
+                .Include(d => d.Disease) 
+                .FirstOrDefaultAsync(d => d.Id == id);
+        }
     }
 }

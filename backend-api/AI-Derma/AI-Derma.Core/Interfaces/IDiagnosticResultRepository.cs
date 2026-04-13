@@ -8,5 +8,7 @@ namespace AI_Derma.Core.Interfaces
     public interface IDiagnosticResultRepository : IGenericRepository<DiagnosticResult>
     {
         Task<IEnumerable<DiagnosticResult>> GetByUserIdAsync(string userId);
+        Task<DiagnosticResult> GetbyDiagnosticResultIdAsync(int id);
     }
+
 }

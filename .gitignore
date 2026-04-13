@@ -9,10 +9,8 @@ build/
 bin/
 obj/
 
-# User-specific files
-*.user
-*.userosscache
-*.sln.docstates
+
 
 # VS Code
 .vscode/
+.vs/

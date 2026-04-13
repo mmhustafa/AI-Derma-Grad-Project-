@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AI-Derma.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9a97be1d32049fb3870cd48e86e89de088331d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c41fdff9ce9ee67fa766e92e4f01577860a61df")]
 [assembly: System.Reflection.AssemblyProductAttribute("AI-Derma.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AI-Derma.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

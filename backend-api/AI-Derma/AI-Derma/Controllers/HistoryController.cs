@@ -21,7 +21,7 @@ namespace AI_Derma.Controllers
         {
             var results=await unitofWork.DiagnosticResults.GetByUserIdAsync(userid);
 
-            if (results == null)
+            if (results == null || !results.Any())
             {
                 return NotFound(new { message = "No History For This User" });
             }
@@ -33,6 +33,7 @@ namespace AI_Derma.Controllers
         public async Task<IActionResult>GetDiagnosticDetails(int resultId)
         {
             var result =await unitofWork.DiagnosticResults.GetbyDiagnosticResultIdAsync(resultId);
+
             if (result == null)
             {
                 return NotFound(new { message = "Not Found" });

@@ -1,16 +1,17 @@
-# Build results
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-build/
-
-# .NET Core / Visual Studio build folders
-bin/
-obj/
-
-
-
-# VS Code
+**/.vs/
+**/[Bb]in/
+**/[Obj]/
+**/[Dd]ebug/
+**/[Rr]elease/
+**/x64/
+**/x86/
+**/build/
 .vscode/
-.vs/
+*.user
+*.suo
+*.dtbcache.v2
+*.futdcache.v2
+*.json.backup
+project.nuget.cache
+*.nuget.props
+*.nuget.targets

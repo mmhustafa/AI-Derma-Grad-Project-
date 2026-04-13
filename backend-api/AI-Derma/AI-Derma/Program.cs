@@ -2,6 +2,7 @@ using AI_Derma;
 using AI_Derma.Core.Interfaces;
 using AI_Derma.Core.Models;
 using AI_Derma.Infrastructure.Data;
+using AI_Derma.Infrastructure.Repos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
 builder.Services.AddDbContext<DermaDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
+builder.Services.AddScoped<IUnitofWork, UnitofWork>();
+builder.Services.AddScoped<IFastAPIService, FastAPIService>();
+builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
+
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<DermaDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>

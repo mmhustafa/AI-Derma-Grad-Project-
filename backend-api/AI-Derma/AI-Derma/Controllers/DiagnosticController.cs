@@ -11,14 +11,14 @@ namespace AI_Derma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DiagonsticController : ControllerBase
+    public class DiagnosticController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFastAPIService fastAPIService;
         private readonly IKBMetadata KB;
 
-        public DiagonsticController(IUnitofWork _unitofWork, 
+        public DiagnosticController(IUnitofWork _unitofWork, 
             UserManager<ApplicationUser> _userManager, 
             IFastAPIService _fastAPIService, IKBMetadata _kB)
         {

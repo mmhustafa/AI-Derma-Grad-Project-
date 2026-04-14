@@ -1,17 +1,56 @@
-**/.vs/
-**/[Bb]in/
-**/[Obj]/
-**/[Dd]ebug/
-**/[Rr]elease/
-**/x64/
-**/x86/
-**/build/
-.vscode/
+## --- Visual Studio & .NET (Backend) ---
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+.vs/
 *.user
 *.suo
+*.sln.docstates
 *.dtbcache.v2
 *.futdcache.v2
 *.json.backup
+# NuGet packages
 project.nuget.cache
 *.nuget.props
 *.nuget.targets
+
+## --- Python & AI (Model & Test System) ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+# Models (Large files)
+*.h5
+*.pth
+*.pt
+*.pkl
+*.onnx
+
+## --- Flutter & Mobile (Mobile App) ---
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+# Flutter web build
+build/web
+
+## --- IDEs & Editors ---
+.vscode/
+.idea/
+*.swp
+*.bak
+
+## --- OS & Databases ---
+.DS_Store
+Thumbs.db
+*.db
+*.sqlite
+/backend-api/AI-Derma/AI-Derma/appsettings.Development.json

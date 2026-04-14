@@ -28,6 +28,7 @@ builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
 builder.Services.AddScoped<IFastAPIService, FastAPIService>();
 builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
+builder.Services.AddHttpClient<IChatService, ChatService>();
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<DermaDbContext>();
 

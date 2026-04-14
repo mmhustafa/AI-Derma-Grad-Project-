@@ -9,7 +9,7 @@ namespace AI_Derma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ChatController : ControllerBase
     {
         private readonly IChatService chatService;

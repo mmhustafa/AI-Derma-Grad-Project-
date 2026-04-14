@@ -39,7 +39,7 @@ namespace AI_Derma.Infrastructure.Repos
 
             var body = new
             {
-                model = "llama3-8b-8192",
+                model = "llama-3.1-8b-instant",
                 messages = new[]
                 {
                 new

@@ -29,7 +29,7 @@ namespace AI_Derma.Controllers
         }
 
         [HttpPost("next-step")]
-        public async Task<IActionResult> GetNextStep(NextStepRequestDto nextStep)
+        public async Task<IActionResult> GetNextStep([FromBody] NextStepRequestDto nextStep)
         {
             var result = await fastAPIService.GetNextStepAsync(nextStep.Facts);
             var metadata = KB.questionsMetadata();
@@ -70,6 +70,23 @@ namespace AI_Derma.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost("save-answer")]
+        public async Task<IActionResult> SaveAnswer([FromBody] SaveAnswerDto dto)
+        {
+            var answer = new SymptomAnswer
+            {
+                DiagnosticResultId = dto.DiagnosticResultId,
+                QuestionText = dto.QuestionText,
+                UserAnswer = dto.Answer
+            };
+
+            await unitofWork.SymptomAnswers.AddAsync(answer);
+            await unitofWork.CompleteAsync();
+
+            return Ok();
+        }
+
 
     }
 }

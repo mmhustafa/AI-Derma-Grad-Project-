@@ -12,7 +12,6 @@
 
         public string CareInstructions { get; set; }
 
-        public string Symptoms { get; set; }
         public ICollection<DiagnosticResult> DiagnosticResults { get; set; }
     }
 }

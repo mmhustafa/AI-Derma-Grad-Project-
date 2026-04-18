@@ -60,7 +60,9 @@ export default function ClinicalAssistantPage() {
     try {
       const response = await chatAPI.sendMessage({
         message: input,
-        sessionId: sessionId,
+        sessionId,
+        condition: "",
+        confidence: 0,
       });
 
       const aiMessage = {

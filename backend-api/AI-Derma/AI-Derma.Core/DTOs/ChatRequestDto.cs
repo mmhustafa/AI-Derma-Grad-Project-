@@ -6,9 +6,9 @@ namespace AI_Derma.Core.DTOs
 {
     public class ChatRequestDto
     {
-        public string Message { get; set; }
-        public string Condition { get; set; }
+        public string? Message { get; set; }
+        public string? Condition { get; set; }
         public double Confidence { get; set; }
-        public string SessionId { get; set; }
+        public string? SessionId { get; set; }
     }
 }

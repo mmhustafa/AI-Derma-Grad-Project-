@@ -34,7 +34,13 @@ export const authAPI = {
 // Chat APIs
 export const chatAPI = {
   getWelcome: () => api.get("/Chat/welcome"),
-  sendMessage: (messageData) => api.post("/Chat", messageData),
+  sendMessage: (messageData) =>
+    api.post("/Chat", {
+      Message: messageData.message,
+      SessionId: messageData.sessionId,
+      Condition: messageData.condition ?? "",
+      Confidence: messageData.confidence ?? 0,
+    }),
 };
 
 // Diagnostic APIs

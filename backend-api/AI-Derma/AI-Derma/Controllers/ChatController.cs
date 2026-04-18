@@ -36,11 +36,16 @@ namespace AI_Derma.Controllers
         [HttpPost]
         public async Task<IActionResult> Chat([FromBody] ChatRequestDto request)
         {
+            if (request == null)
+                return BadRequest(new { error = "Request body is required." });
+
             if (string.IsNullOrWhiteSpace(request.Message))
-                return BadRequest("Message is required");
+                return BadRequest(new { error = "Message is required." });
 
             if (string.IsNullOrEmpty(request.SessionId))
-                return BadRequest("SessionId is required");
+                return BadRequest(new { error = "SessionId is required." });
+
+            request.Condition ??= string.Empty;
 
             var reply = await chatService.GetResponseAsync(request);
 

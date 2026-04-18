@@ -133,7 +133,7 @@ namespace AI_Derma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DiagnosticResults");
+                    b.ToTable("DiagnosticResults", (string)null);
                 });
 
             modelBuilder.Entity("AI_Derma.Core.Models.Disease", b =>
@@ -162,7 +162,7 @@ namespace AI_Derma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Diseases");
+                    b.ToTable("Diseases", (string)null);
                 });
 
             modelBuilder.Entity("AI_Derma.Core.Models.Feedback", b =>
@@ -197,7 +197,7 @@ namespace AI_Derma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Feedbacks");
+                    b.ToTable("Feedbacks", (string)null);
                 });
 
             modelBuilder.Entity("AI_Derma.Core.Models.SymptomAnswer", b =>
@@ -223,7 +223,7 @@ namespace AI_Derma.Infrastructure.Migrations
 
                     b.HasIndex("DiagnosticResultId");
 
-                    b.ToTable("SymptomAnswers");
+                    b.ToTable("SymptomAnswers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

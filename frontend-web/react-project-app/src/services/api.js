@@ -15,9 +15,23 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+    console.log("Token from localStorage:", token ? "present" : "null/empty");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      console.log("Authorization header set:", config.headers.Authorization.substring(0, 20) + "...");
+    } else {
+      console.log("No token found, Authorization header not set");
     }
+
+    if (config.url?.includes("/Diagnostic/next-step")) {
+      console.log("Axios diagnostic next-step request body:", config.data);
+      try {
+        console.log("Axios diagnostic next-step JSON:", JSON.stringify(config.data));
+      } catch (e) {
+        console.warn("Unable to stringify diagnostic next-step data", e);
+      }
+    }
+
     return config;
   },
   (error) => {
@@ -45,8 +59,10 @@ export const chatAPI = {
 
 // Diagnostic APIs
 export const diagnosticAPI = {
-  getNextStep: (facts) => api.post("/Diagnostic/next-step", { facts }),
-  saveAnswer: (answerData) => api.post("/Diagnostic/save-answer", answerData),
+  getNextStep: (payload) => api.post("/Diagnostic/next-step", payload),
+  saveAnswers: (answersData) => api.post("/Diagnostic/save-answers", answersData),
+  getDiseaseDetails: (diseaseName) =>
+    api.get(`/Diagnostic/disease-details?name=${encodeURIComponent(diseaseName)}`),
 };
 
 // History APIs

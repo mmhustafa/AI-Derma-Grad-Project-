@@ -8,7 +8,6 @@ import UploadPage from "./pages/UploadPage";
 import AssessmentResultPage from "./pages/AssessmentResultPage";
 import ClinicalAssistantPage from "./pages/ClinicalAssistantPage";
 import HistoryPage from "./pages/HistoryPage";
-import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   return (
@@ -23,7 +22,6 @@ export default function App() {
           <Route path="/result" element={<AssessmentResultPage />} />
           <Route path="/assistant" element={<ClinicalAssistantPage />} />
           <Route path="/history" element={<HistoryPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
 
           {/* 404 fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

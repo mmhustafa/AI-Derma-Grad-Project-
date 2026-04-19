@@ -1,11 +1,111 @@
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { diagnosticAPI } from "../services/api";
 import "../assets/styles/assessmentResult.css";
 import "../assets/styles/components.css";
 
 export default function AssessmentResultPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state || {};
+
+  const diseaseName = state.diseaseName || "Unknown diagnosis";
+  const sourceType = state.source || "ai";
+  const answers = state.answers || [];
+
+  const [diseaseDetails, setDiseaseDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [savingError, setSavingError] = useState("");
+
+  useEffect(() => {
+    if (!state.diseaseName) {
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    diagnosticAPI
+      .getDiseaseDetails(state.diseaseName)
+      .then((response) => {
+        setDiseaseDetails(response.data);
+      })
+      .catch((err) => {
+        setError(err.response?.data || "Unable to load disease details.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [diseaseName]);
+
+  const handleSaveResult = async () => {
+    setSaving(true);
+    setSavingError("");
+
+    try {
+      // Validate we have a result ID
+      if (!state.diagnosticResultId || state.diagnosticResultId === 0) {
+        setSavingError("Diagnostic result not available. Please restart assessment.");
+        setSaving(false);
+        return;
+      }
+
+      // Get answers from state or session storage
+      const answersToSave = answers.length > 0 
+        ? answers 
+        : sessionStorage.getItem('diagnosticAnswers') 
+          ? JSON.parse(sessionStorage.getItem('diagnosticAnswers'))
+          : [];
+
+      if (answersToSave.length === 0) {
+        setSavingError("No answers to save. Please restart assessment.");
+        setSaving(false);
+        return;
+      }
+
+      const savePayload = {
+        diagnosticResultId: state.diagnosticResultId,
+        answers: answersToSave.map((ans) => ({
+          questionText: ans.questionText || "",
+          answer: ans.answer || "",
+        })),
+      };
+
+      console.log("Saving diagnostic result with answers:", savePayload);
+
+      const response = await diagnosticAPI.saveAnswers(savePayload);
+      if (response.data?.success) {
+        // Clear session storage after successful save
+        sessionStorage.removeItem('diagnosticAnswers');
+        setSaved(true);
+        console.log("Answers saved successfully");
+      } else {
+        setSavingError(response.data?.message || "Failed to save answers.");
+      }
+    } catch (err) {
+      console.error("Error saving answers:", err);
+      setSavingError(err.response?.data?.message || err.message || "Failed to save result.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const diagnosisLabel = diseaseDetails?.diseaseName || diseaseName;
+  const description = diseaseDetails?.description || "No disease information available.";
+  const nextSteps = diseaseDetails?.careInstructions
+    ? diseaseDetails.careInstructions
+        .split(".")
+        .map((item) => item.trim())
+        .filter(Boolean)
+    : [];
+  const confidenceValue = sourceType === "expert" ? "-" : state.confidence || "-";
+  const metricWidth = sourceType === "expert" ? "0%" : `${state.confidence || 0}%`;
+  const badgeText = sourceType === "expert" ? "Expert System" : "Verified AI";
 
   return (
     <div className="result-page">
@@ -28,6 +128,16 @@ export default function AssessmentResultPage() {
               Download PDF
             </button>
             <button
+              className="result-btn result-btn-success"
+              type="button"
+              onClick={handleSaveResult}
+              disabled={saving || saved}
+              id="result-save-btn"
+              style={{ opacity: saving || saved ? 0.7 : 1, cursor: saving || saved ? "not-allowed" : "pointer" }}
+            >
+              {saved ? "✓ Saved" : saving ? "Saving..." : "Save Result"}
+            </button>
+            <button
               className="result-btn result-btn-primary"
               type="button"
               onClick={() => navigate("/assistant")}
@@ -38,6 +148,10 @@ export default function AssessmentResultPage() {
           </div>
         </div>
 
+        {loading && <div className="info-banner">Loading disease details…</div>}
+        {error && <div className="error-banner">{error}</div>}
+        {savingError && <div className="error-banner">{savingError}</div>}
+
         <section className="result-grid">
           {/* Left — Diagnosis */}
           <div className="result-card">
@@ -45,8 +159,8 @@ export default function AssessmentResultPage() {
               <div>
                 <div className="result-card-kicker">Primary Diagnosis</div>
                 <div className="result-diagnosis-row">
-                  <div className="result-diagnosis">Atopic Eczema</div>
-                  <span className="badge badge-success">Verified AI</span>
+                  <div className="result-diagnosis">{diagnosisLabel}</div>
+                  <span className="badge badge-success">{badgeText}</span>
                 </div>
               </div>
             </div>
@@ -55,65 +169,59 @@ export default function AssessmentResultPage() {
               <div className="result-metric-label">AI Confidence Score</div>
               <div className="result-metric-row">
                 <div className="result-metric-bar">
-                  <div
-                    className="result-metric-fill"
-                    style={{ width: "94%" }}
-                  />
+                  <div className="result-metric-fill" style={{ width: metricWidth }} />
                 </div>
-                <div className="result-metric-value">94%</div>
+                <div className="result-metric-value">{confidenceValue}</div>
               </div>
             </div>
 
-            <div
-              className="result-image-card"
-              aria-label="Dermatology close-up illustration"
-            >
+            <div className="result-image-card" aria-label="Dermatology close-up illustration">
               <div className="result-image-overlay" />
-              <svg
-                className="result-image-lines"
-                viewBox="0 0 240 140"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <defs>
-                  <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="rgba(255,255,255,0.15)" />
-                    <stop offset="1" stopColor="rgba(255,255,255,0)" />
-                  </linearGradient>
-                </defs>
-                <rect
-                  x="0"
-                  y="0"
-                  width="240"
-                  height="140"
-                  fill="url(#skinGrad)"
-                />
-                <path
-                  d="M-10 105 C 40 75, 80 110, 130 85 C 170 65, 210 95, 260 60"
-                  stroke="rgba(255,255,255,0.45)"
-                  strokeWidth="2.4"
-                  fill="none"
-                />
-                <path
-                  d="M-10 120 C 50 95, 90 130, 145 102 C 185 82, 215 110, 260 80"
-                  stroke="rgba(255,255,255,0.22)"
-                  strokeWidth="2"
-                  fill="none"
-                />
-              </svg>
-              <div className="result-image-caption">
-                Microscopic texture analysis
-              </div>
+              {sourceType === "expert" ? (
+                <div className="result-no-photo" style={{ padding: "2rem 1rem", textAlign: "center", color: "#fff", fontWeight: 700 }}>
+                  No photo
+                </div>
+              ) : (
+                <>
+                  <svg
+                    className="result-image-lines"
+                    viewBox="0 0 240 140"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stopColor="rgba(255,255,255,0.15)" />
+                        <stop offset="1" stopColor="rgba(255,255,255,0)" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="240" height="140" fill="url(#skinGrad)" />
+                    <path
+                      d="M-10 105 C 40 75, 80 110, 130 85 C 170 65, 210 95, 260 60"
+                      stroke="rgba(255,255,255,0.45)"
+                      strokeWidth="2.4"
+                      fill="none"
+                    />
+                    <path
+                      d="M-10 120 C 50 95, 90 130, 145 102 C 185 82, 215 110, 260 80"
+                      stroke="rgba(255,255,255,0.22)"
+                      strokeWidth="2"
+                      fill="none"
+                    />
+                  </svg>
+                  <div className="result-image-caption">Microscopic texture analysis</div>
+                </>
+              )}
             </div>
 
             <div className="result-pill-grid">
               <div className="result-pill">
-                <div className="result-pill-label">Duration</div>
-                <div className="result-pill-value">~ 48 hours</div>
+                <div className="result-pill-label">Severity</div>
+                <div className="result-pill-value">{diseaseDetails?.severityLevel || "Unknown"}</div>
               </div>
               <div className="result-pill">
-                <div className="result-pill-label">Severity</div>
-                <div className="result-pill-value">Moderate</div>
+                <div className="result-pill-label">Source</div>
+                <div className="result-pill-value">{sourceType === "expert" ? "Expert System" : "AI Model"}</div>
               </div>
             </div>
           </div>
@@ -121,91 +229,66 @@ export default function AssessmentResultPage() {
           {/* Right — Details */}
           <div className="result-right">
             <div className="result-card">
-              <div className="result-section-title">About Atopic Eczema</div>
-              <p className="result-paragraph">
-                Atopic dermatitis (eczema) is a condition that makes your skin
-                red and itchy. It&apos;s common in children but can occur at any
-                age. It is long-lasting (chronic) and tends to flare
-                periodically. It may be accompanied by asthma or hay fever.
-              </p>
+              <div className="result-section-title">About {diagnosisLabel}</div>
+              <p className="result-paragraph">{description}</p>
 
-              <div className="result-split">
-                <div>
-                  <div className="result-subtitle">Key symptoms</div>
-                  <ul className="result-list">
-                    <li>Dry, scaly patches</li>
-                    <li>Itching, which may be severe</li>
-                    <li>Red to brownish-gray patches</li>
-                  </ul>
-                </div>
+              {diseaseDetails?.description && (
+                <div className="result-split">
+                  <div>
+                    <div className="result-subtitle">Key summary</div>
+                    <ul className="result-list">
+                      <li>{diseaseDetails.description}</li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <div className="result-subtitle">Common triggers</div>
-                  <ul className="result-list result-list-warn">
-                    <li>Harsh soaps or detergents</li>
-                    <li>Environmental allergens</li>
-                    <li>Stress and heat</li>
-                  </ul>
+                  <div>
+                    <div className="result-subtitle">Care instructions</div>
+                    <ul className="result-list result-list-warn">
+                      {nextSteps.length > 0 ? (
+                        nextSteps.map((step, index) => (
+                          <li key={index}>{step}</li>
+                        ))
+                      ) : (
+                        <li>Follow your healthcare provider's instructions.</li>
+                      )}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="result-card">
               <div className="result-section-title">Clinical Next Steps</div>
 
-              <button
-                className="nextstep"
-                type="button"
-                onClick={() => navigate("/assistant")}
-                id="nextstep-1"
-              >
-                <span className="nextstep-num">1</span>
-                <span className="nextstep-main">
-                  <span className="nextstep-title">Gentle Hydration</span>
-                  <span className="nextstep-desc">
-                    Apply fragrance-free moisturizer twice daily.
+              {nextSteps.length > 0 ? (
+                nextSteps.map((step, index) => (
+                  <button
+                    key={index}
+                    className="nextstep"
+                    type="button"
+                    onClick={() => navigate("/assistant")}
+                    id={`nextstep-${index + 1}`}
+                  >
+                    <span className="nextstep-num">{index + 1}</span>
+                    <span className="nextstep-main">
+                      <span className="nextstep-title">{step}</span>
+                      <span className="nextstep-desc">Review this guidance with a clinician if needed.</span>
+                    </span>
+                    <span className="nextstep-arrow" aria-hidden="true">
+                      ›
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <button className="nextstep" type="button" onClick={() => navigate("/assistant")}> 
+                  <span className="nextstep-num">1</span>
+                  <span className="nextstep-main">
+                    <span className="nextstep-title">Continue monitoring symptoms</span>
+                    <span className="nextstep-desc">Return to the assistant for further guidance.</span>
                   </span>
-                </span>
-                <span className="nextstep-arrow" aria-hidden="true">
-                  ›
-                </span>
-              </button>
-
-              <button
-                className="nextstep"
-                type="button"
-                onClick={() => navigate("/assistant")}
-                id="nextstep-2"
-              >
-                <span className="nextstep-num">2</span>
-                <span className="nextstep-main">
-                  <span className="nextstep-title">OTC Treatment</span>
-                  <span className="nextstep-desc">
-                    Consider 1% hydrocortisone cream for itching.
-                  </span>
-                </span>
-                <span className="nextstep-arrow" aria-hidden="true">
-                  ›
-                </span>
-              </button>
-
-              <button
-                className="nextstep"
-                type="button"
-                onClick={() => navigate("/assistant")}
-                id="nextstep-3"
-              >
-                <span className="nextstep-num">3</span>
-                <span className="nextstep-main">
-                  <span className="nextstep-title">Specialist Consult</span>
-                  <span className="nextstep-desc">
-                    Schedule a follow-up for confirmation and treatment plan.
-                  </span>
-                </span>
-                <span className="nextstep-arrow" aria-hidden="true">
-                  ›
-                </span>
-              </button>
+                  <span className="nextstep-arrow" aria-hidden="true">›</span>
+                </button>
+              )}
             </div>
           </div>
         </section>

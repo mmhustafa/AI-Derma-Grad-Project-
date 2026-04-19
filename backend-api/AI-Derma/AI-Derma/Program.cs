@@ -26,8 +26,14 @@ builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
-builder.Services.AddScoped<IFastAPIService, FastAPIService>();
-builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
+var expertSystemBaseUrl = builder.Configuration["ExpertSystem:BaseUrl"] ?? "http://127.0.0.1:8000";
+
+builder.Services.AddHttpClient<IFastAPIService, FastAPIService>(client =>
+{
+    client.BaseAddress = new Uri(expertSystemBaseUrl);
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
 builder.Services.AddHttpClient<IChatService, ChatService>();
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<DermaDbContext>();
@@ -45,7 +51,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5178", "http://localhost:4200")
+        policy.WithOrigins("http://localhost:5175", "http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();

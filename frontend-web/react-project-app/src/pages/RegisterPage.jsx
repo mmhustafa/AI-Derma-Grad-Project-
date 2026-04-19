@@ -64,9 +64,15 @@ export default function RegisterPage() {
       Gender: form.gender,
     });
     if (result.success) {
-      navigate('/login'); // Redirect to login after registration
+      navigate('/login');
     } else {
-      setApiError(result.error || result.message || 'Registration failed');
+      // Join all error messages into a single string
+      const errorMessage = result.errors && Array.isArray(result.errors)
+        ? result.errors.join(' ')
+        : result.errors?.[0] || 'Registration failed';
+      setApiError(errorMessage);
+      
+      // Set field-specific errors
       if (result.fieldErrors) {
         setErrors((prev) => ({ ...prev, ...result.fieldErrors }));
       }
@@ -93,7 +99,21 @@ export default function RegisterPage() {
           </p>
 
           <form className="auth-form" onSubmit={handleSubmit} noValidate id="register-form">
-            {apiError && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{apiError}</div>}
+            {apiError && (
+              <div style={{
+                backgroundColor: '#fef2f2',
+                border: '1px solid #fecaca',
+                borderRadius: '6px',
+                padding: '16px 14px',
+                marginBottom: '20px',
+                color: '#991b1b',
+                fontSize: '0.9rem',
+                lineHeight: '1.5',
+                fontWeight: '500',
+              }}>
+                {apiError}
+              </div>
+            )}
             <FormInput
               id="register-username"
               label="USERNAME"

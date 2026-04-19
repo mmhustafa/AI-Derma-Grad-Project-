@@ -109,6 +109,20 @@
   box-shadow: 0 4px 12px rgba(35, 86, 190, 0.3);
 }
 
+.navbar-logout-btn {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  margin-left: 8px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.navbar-logout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(35, 86, 190, 0.2);
+}
+
 .navbar-avatar {
   width: 36px;
   height: 36px;

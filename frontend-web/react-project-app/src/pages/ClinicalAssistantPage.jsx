@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { chatAPI } from "../services/api";
@@ -16,9 +16,21 @@ export default function ClinicalAssistantPage() {
   const [sessionId, setSessionId] = useState("");
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    // Wait for authentication to be established
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/login");
       return;
+    }
+
+    if (!isAuthenticated) {
+      // If we have a token but isAuthenticated is false, wait a bit for state to update
+      const timer = setTimeout(() => {
+        if (!isAuthenticated) {
+          navigate("/login");
+        }
+      }, 100);
+      return () => clearTimeout(timer);
     }
 
     const initializeChat = async () => {
@@ -88,16 +100,6 @@ export default function ClinicalAssistantPage() {
       setLoading(false);
     }
   };
-
-  const quickFacts = useMemo(
-    () => [
-      { label: "Patient image", value: "IMG_0921.dcm" },
-      { label: "Visit count", value: "3rd consultation" },
-      { label: "Assigned MD", value: "Dr. Elena Ross" },
-      { label: "Urgency", value: "High priority" },
-    ],
-    [],
-  );
 
   const handleSend = () => {
     handleSendMessage();
@@ -218,19 +220,10 @@ export default function ClinicalAssistantPage() {
               </button>
             </div>
             <div className="assistant-disclaimer">
-              AI-generated assessments are for clinical decision support and
-              must be verified by a licensed professional.
+              AI-generated assessments are for clinical decision support only and
+              do not replace a licensed consultant.
             </div>
           </div>
-        </section>
-
-        <section className="assistant-facts">
-          {quickFacts.map((f) => (
-            <div className="assistant-fact" key={f.label}>
-              <div className="assistant-fact-label">{f.label}</div>
-              <div className="assistant-fact-value">{f.value}</div>
-            </div>
-          ))}
         </section>
       </main>
 

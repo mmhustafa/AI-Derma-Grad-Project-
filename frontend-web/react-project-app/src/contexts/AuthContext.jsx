@@ -12,16 +12,21 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    // Initialize user state immediately if token exists
+    const storedToken = localStorage.getItem("token");
+    return storedToken ? { token: storedToken } : null;
+  });
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (token) {
-      // Optionally decode token to get user info
-      setUser({ token });
+    const storedToken = localStorage.getItem("token");
+    if (storedToken && !user) {
+      setToken(storedToken);
+      setUser({ token: storedToken });
     }
-  }, [token]);
+  }, [user]);
 
   const login = async (email, password) => {
     setLoading(true);
@@ -44,47 +49,50 @@ export const AuthProvider = ({ children }) => {
 
   const extractErrorDetails = (error) => {
     const responseData = error?.response?.data;
-    if (!responseData) return { message: "Registration failed", fieldErrors: {} };
+    if (!responseData) return { errors: ["Registration failed"], fieldErrors: {} };
 
+    // Handle string response
     if (typeof responseData === "string") {
-      return { message: responseData, fieldErrors: {} };
+      return { errors: [responseData], fieldErrors: {} };
     }
 
-    if (responseData.errors && typeof responseData.errors === "object") {
-      const fieldErrors = {};
-      const messages = [];
-      const fieldMap = {
-        UserName: "userName",
-        Email: "email",
-        Password: "password",
-        Age: "age",
-        Gender: "gender",
-      };
+    // Check if errors are nested under responseData.errors
+    let errorsObj = responseData.errors || responseData;
+    
+    const fieldErrors = {};
+    const errors = [];
+    const fieldMap = {
+      UserName: "userName",
+      Email: "email",
+      Password: "password",
+      Age: "age",
+      Gender: "gender",
+    };
 
-      Object.entries(responseData.errors).forEach(([key, value]) => {
-        const values = Array.isArray(value) ? value : [value];
-        const joined = values.join(" ");
+    // Extract all error messages
+    Object.entries(errorsObj).forEach(([key, value]) => {
+      // Handle both string and array values
+      const values = Array.isArray(value) ? value : [value];
+      const messages = values.filter(v => v && typeof v === 'string');
+      
+      if (messages.length > 0) {
+        const joined = messages.join(" ");
+        
+        // Map field names for form validation
         if (key && fieldMap[key]) {
           fieldErrors[fieldMap[key]] = joined;
-        } else if (key) {
+        } else if (key && key !== "") {
           fieldErrors[key] = joined;
         }
-        messages.push(joined);
-      });
-
-      return {
-        message: messages.length ? messages.join(" ") : "Registration failed",
-        fieldErrors,
-      };
-    }
-
-    if (responseData.title && responseData.detail) {
-      return { message: `${responseData.title}: ${responseData.detail}`, fieldErrors: {} };
-    }
+        
+        // Collect all error messages
+        errors.push(joined);
+      }
+    });
 
     return {
-      message: responseData.message || "Registration failed",
-      fieldErrors: {},
+      errors: errors.length > 0 ? errors : ["Registration failed"],
+      fieldErrors,
     };
   };
 
@@ -94,11 +102,11 @@ export const AuthProvider = ({ children }) => {
       await authAPI.register(userData);
       return { success: true };
     } catch (error) {
-      const details = extractErrorDetails(error);
+      const { errors, fieldErrors } = extractErrorDetails(error);
       return {
         success: false,
-        error: details.message,
-        ...details,
+        errors, // Array of error strings
+        fieldErrors, // Map of field-specific errors
       };
     } finally {
       setLoading(false);

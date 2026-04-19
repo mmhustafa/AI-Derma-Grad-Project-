@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { historyAPI } from "../services/api";
+import historyService from "../services/historyService";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../assets/styles/history.css";
@@ -22,24 +22,21 @@ export default function HistoryPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    }
-
     const fetchHistory = async () => {
       try {
-        const response = await historyAPI.getDiagnostics();
-        setDiagnostics(response.data);
+        const data = await historyService.getDiagnostics();
+        setDiagnostics(data);
       } catch (err) {
-        setError("Failed to load history");
+        // For any error, just show empty state - don't redirect
+        console.warn("Failed to load history:", err.message);
+        setDiagnostics([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchHistory();
-  }, [isAuthenticated, navigate]);
+  }, [navigate]);
 
   const items = useMemo(
     () =>
@@ -160,17 +157,7 @@ export default function HistoryPage() {
               </div>
             </div>
 
-            <button
-              className="history-expert"
-              type="button"
-              onClick={() => navigate("/assistant")}
-              id="history-chat-expert"
-            >
-              <div className="history-expert-title">
-                Need clinical consultation?
-              </div>
-              <div className="history-expert-sub">Chat with expert</div>
-            </button>
+            
           </aside>
 
           {/* Main */}

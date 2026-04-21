@@ -1,4 +1,6 @@
-﻿namespace AI_Derma.Core.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AI_Derma.Core.Models
 {
     public class Disease
     {
@@ -12,6 +14,7 @@
 
         public string CareInstructions { get; set; }
 
+        [JsonIgnore]
         public ICollection<DiagnosticResult> DiagnosticResults { get; set; }
     }
 }

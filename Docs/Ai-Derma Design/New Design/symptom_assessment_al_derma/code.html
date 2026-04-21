@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Al-Derma | Symptom Assessment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#82cfff",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#003e58",
+              "surface-container-low": "#eff4fa",
+              "secondary-fixed-dim": "#45d8ed",
+              "on-secondary-fixed": "#001f24",
+              "surface-dim": "#d6dae0",
+              "outline-variant": "#bdc8d1",
+              "on-surface": "#171c20",
+              "primary-fixed-dim": "#82cfff",
+              "on-tertiary-fixed": "#002204",
+              "surface-bright": "#f5faff",
+              "tertiary-fixed-dim": "#78dc77",
+              "error-container": "#ffdad6",
+              "outline": "#6e7881",
+              "error": "#ba1a1a",
+              "primary-container": "#00aeef",
+              "tertiary": "#006e1c",
+              "surface": "#f5faff",
+              "surface-container": "#eaeef4",
+              "secondary": "#006874",
+              "primary-fixed": "#c6e7ff",
+              "on-tertiary-container": "#00430e",
+              "inverse-surface": "#2c3135",
+              "surface-variant": "#dee3e8",
+              "tertiary-container": "#54b757",
+              "on-secondary-fixed-variant": "#004f58",
+              "on-tertiary": "#ffffff",
+              "surface-tint": "#00658d",
+              "inverse-on-surface": "#ecf1f7",
+              "background": "#f5faff",
+              "on-secondary-container": "#006773",
+              "on-primary-fixed-variant": "#004c6b",
+              "on-surface-variant": "#3e4850",
+              "on-tertiary-fixed-variant": "#005313",
+              "secondary-container": "#5ce9fe",
+              "surface-container-highest": "#dee3e8",
+              "tertiary-fixed": "#94f990",
+              "primary": "#00658d",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e4e9ee",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#001e2d",
+              "secondary-fixed": "#98f0ff",
+              "on-primary": "#ffffff",
+              "on-background": "#171c20"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tonal-layering-no-border {
+        border: none !important;
+      }
+      .tonal-shift-surface-container-low {
+        background-color: #eff4fa;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg fixed top-0 w-full z-50 shadow-[0_8px_24px_rgba(0,62,88,0.06)] tonal-layering-no-border">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#00658d] dark:text-[#00aeef] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-manrope font-bold text-lg tracking-tight text-[#00658d] dark:text-[#00aeef]">Symptom Assessment</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="professional medical specialist profile picture with clean clinical background and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd4UEdZ6Sn0lD8bnF3KV5y8VJ3sLtGndEV6M5UasHax1JWLfA3w_4whheua7MFf-wnewOBXYdITbQvHN3XfxAGgr8wIKkrQ2dHSgk5T5rQ6q2EsDUbvNMoKOVeWr8TEFZL5psHt5lo7LBBrBlOtlGmsozcNC661Ye6ligJv5LWI5YlyHkBEIJjLIaFgxkmFYgfJtpjeZDRqVYDDUUgfIwnn-TUsLuzowy_ajI8oDQLZELl3EtfR6Ooa7verSFGv-RP5y_5meadlxs"/>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container">
+<div class="h-full bg-primary-container w-full transition-all duration-500 rounded-r-full"></div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+<!-- Question Header Section -->
+<section class="mb-10">
+<span class="font-label text-[11px] font-medium tracking-widest uppercase text-primary mb-2 block">Question 8 of 8</span>
+<h2 class="font-headline text-2xl font-extrabold text-on-surface leading-tight tracking-tight">How long have you had these symptoms?</h2>
+</section>
+<!-- Asymmetric Visual Anchor (Clinical Sanctuary Aesthetic) -->
+<!-- Selection Options -->
+<div class="space-y-4">
+<!-- Option 1 -->
+<label class="group relative flex items-center justify-between p-5 rounded-xl bg-surface-container-lowest hover:bg-slate-50 transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-body text-base font-medium text-on-surface">Less than a week</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-secondary transition-colors flex items-center justify-center">
+<input class="hidden" name="symptom_duration" type="radio"/>
+</div>
+</label>
+<!-- Option 2 (Selected) -->
+<label class="group relative flex items-center justify-between p-5 rounded-xl bg-secondary-container/10 border border-secondary/20 transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-body text-base font-semibold text-secondary">1-2 weeks</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-secondary bg-secondary flex items-center justify-center">
+<input checked="" class="hidden" name="symptom_duration" type="radio"/>
+<span class="material-symbols-outlined text-[16px] text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="group relative flex items-center justify-between p-5 rounded-xl bg-surface-container-lowest hover:bg-slate-50 transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-body text-base font-medium text-on-surface">2-4 weeks</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-secondary transition-colors flex items-center justify-center">
+<input class="hidden" name="symptom_duration" type="radio"/>
+</div>
+</label>
+<!-- Option 4 -->
+<label class="group relative flex items-center justify-between p-5 rounded-xl bg-surface-container-lowest hover:bg-slate-50 transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-body text-base font-medium text-on-surface">More than a month</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-secondary transition-colors flex items-center justify-center">
+<input class="hidden" name="symptom_duration" type="radio"/>
+</div>
+</label>
+</div>
+<!-- Informational Editorial Note -->
+<div class="mt-12 p-6 rounded-xl bg-surface-container-low border-l-4 border-primary/40">
+<h4 class="font-headline font-bold text-sm text-primary mb-2 uppercase tracking-widest">Medical Context</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                Persistent symptoms lasting longer than two weeks may require a different diagnostic pathway. Your history is securely encrypted.
+            </p>
+</div>
+</main>
+<!-- Fixed Action Footer -->
+<footer class="fixed bottom-0 w-full bg-white dark:bg-slate-900 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] px-6 py-6 z-50">
+<div class="max-w-2xl mx-auto">
+<button class="w-full h-14 rounded-full bg-gradient-to-r from-[#00658d] to-[#00aeef] text-white font-headline font-bold text-lg shadow-[0_8px_24px_rgba(0,101,141,0.25)] active:scale-95 transition-transform duration-200">
+                Get Diagnosis
+            </button>
+</div>
+</footer>
+<!-- Bottom Navigation (Suppressing based on 'Task-Focused' rule, but keeping structure if needed for top-level) -->
+<!-- Suppressed for this transactional screening step -->
+</body></html>

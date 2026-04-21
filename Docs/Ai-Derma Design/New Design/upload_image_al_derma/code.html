@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#006e1c",
+              "surface-container-low": "#eff4fa",
+              "primary-fixed-dim": "#82cfff",
+              "surface-container-lowest": "#ffffff",
+              "outline-variant": "#bdc8d1",
+              "primary": "#00658d",
+              "on-primary-fixed-variant": "#004c6b",
+              "on-surface-variant": "#3e4850",
+              "secondary-container": "#5ce9fe",
+              "inverse-primary": "#82cfff",
+              "primary-fixed": "#c6e7ff",
+              "on-secondary-fixed": "#001f24",
+              "inverse-surface": "#2c3135",
+              "surface-variant": "#dee3e8",
+              "on-primary-fixed": "#001e2d",
+              "tertiary-fixed-dim": "#78dc77",
+              "surface-tint": "#00658d",
+              "on-tertiary-fixed-variant": "#005313",
+              "on-background": "#171c20",
+              "on-secondary-fixed-variant": "#004f58",
+              "background": "#f5faff",
+              "surface-container-high": "#e4e9ee",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "surface-bright": "#f5faff",
+              "secondary": "#006874",
+              "secondary-fixed": "#98f0ff",
+              "outline": "#6e7881",
+              "on-secondary-container": "#006773",
+              "on-tertiary-container": "#00430e",
+              "on-tertiary-fixed": "#002204",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#003e58",
+              "tertiary-fixed": "#94f990",
+              "surface-container-highest": "#dee3e8",
+              "error": "#ba1a1a",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "on-surface": "#171c20",
+              "on-error-container": "#93000a",
+              "surface-container": "#eaeef4",
+              "secondary-fixed-dim": "#45d8ed",
+              "inverse-on-surface": "#ecf1f7",
+              "surface": "#f5faff",
+              "primary-container": "#00aeef",
+              "tertiary-container": "#54b757",
+              "surface-dim": "#d6dae0"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body antialiased">
+<header class="fixed top-0 w-full z-50 glass-header shadow-[0_8px_24px_rgba(0,62,88,0.06)]">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#00658d] active:scale-95 duration-200 transition-opacity hover:opacity-80">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#00658d]">Upload Image</h1>
+</div>
+<div class="text-[#00658d] font-extrabold tracking-tighter font-headline">Al-Derma</div>
+</div>
+<div class="bg-slate-100 h-[1px] w-full"></div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-8">
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-[0_8px_24px_rgba(0,62,88,0.06)] border border-outline-variant/20 hover:bg-primary-fixed transition-colors group active:scale-95 duration-200">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center mb-3 group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">photo_camera</span>
+</div>
+<span class="font-headline font-bold text-on-primary-container">Capture Photo</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-[0_8px_24px_rgba(0,62,88,0.06)] border border-outline-variant/20 hover:bg-primary-fixed transition-colors group active:scale-95 duration-200">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center mb-3 group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">gallery_thumbnail</span>
+</div>
+<span class="font-headline font-bold text-on-primary-container">From Gallery</span>
+</button>
+</div>
+<div class="relative group">
+<div class="w-full aspect-square md:aspect-video rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low flex flex-col items-center justify-center p-8 transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="text-center space-y-3">
+<span class="material-symbols-outlined text-outline text-5xl">cloud_upload</span>
+<p class="text-on-surface-variant font-medium">Image preview area</p>
+<p class="text-outline text-sm">Selected images will appear here for review</p>
+</div>
+</div>
+</div>
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_8px_24px_rgba(0,62,88,0.04)]">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-tertiary">verified</span>
+<h3 class="font-headline font-bold text-on-surface tracking-tight">Best Results</h3>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-bold text-on-surface leading-tight">Good lighting</p>
+<p class="text-sm text-on-surface-variant">Ensure the area is well-lit, preferably with natural light.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-bold text-on-surface leading-tight">Close-up view</p>
+<p class="text-sm text-on-surface-variant">Keep the camera 10-15cm away from the skin concern.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-bold text-on-surface leading-tight">Clear focus</p>
+<p class="text-sm text-on-surface-variant">Wait for the camera to auto-focus before capturing.</p>
+</div>
+</li>
+</ul>
+</section>
+<div class="pt-4">
+<button class="w-full py-4 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-headline font-bold text-lg shadow-lg shadow-primary/20 active:scale-[0.98] transition-all hover:opacity-90">
+                Analyze with AI
+            </button>
+<p class="text-center text-xs text-outline mt-4 px-8 leading-relaxed">
+                By uploading, you agree to our processing of medical data for the purpose of analysis.
+            </p>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white shadow-[0_-4px_20px_rgba(0,62,88,0.04)] rounded-t-3xl z-50">
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#00aeef]/10 text-[#00658d] rounded-2xl px-5 py-2 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">content_paste_search</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Assess</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

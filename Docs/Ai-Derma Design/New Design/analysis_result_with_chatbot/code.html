@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Analysis Result - Al-Derma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#006e1c",
+              "surface-container-low": "#eff4fa",
+              "primary-fixed-dim": "#82cfff",
+              "surface-container-lowest": "#ffffff",
+              "outline-variant": "#bdc8d1",
+              "primary": "#00658d",
+              "on-primary-fixed-variant": "#004c6b",
+              "on-surface-variant": "#3e4850",
+              "secondary-container": "#5ce9fe",
+              "inverse-primary": "#82cfff",
+              "primary-fixed": "#c6e7ff",
+              "on-secondary-fixed": "#001f24",
+              "inverse-surface": "#2c3135",
+              "surface-variant": "#dee3e8",
+              "on-primary-fixed": "#001e2d",
+              "tertiary-fixed-dim": "#78dc77",
+              "surface-tint": "#00658d",
+              "on-tertiary-fixed-variant": "#005313",
+              "on-background": "#171c20",
+              "on-secondary-fixed-variant": "#004f58",
+              "background": "#f5faff",
+              "surface-container-high": "#e4e9ee",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "surface-bright": "#f5faff",
+              "secondary": "#006874",
+              "secondary-fixed": "#98f0ff",
+              "outline": "#6e7881",
+              "on-secondary-container": "#006773",
+              "on-tertiary-container": "#00430e",
+              "on-tertiary-fixed": "#002204",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#003e58",
+              "tertiary-fixed": "#94f990",
+              "surface-container-highest": "#dee3e8",
+              "error": "#ba1a1a",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "on-surface": "#171c20",
+              "on-error-container": "#93000a",
+              "surface-container": "#eaeef4",
+              "secondary-fixed-dim": "#45d8ed",
+              "inverse-on-surface": "#ecf1f7",
+              "surface": "#f5faff",
+              "primary-container": "#00aeef",
+              "tertiary-container": "#54b757",
+              "surface-dim": "#d6dae0"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-header {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(16px);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 glass-header shadow-[0_8px_24px_rgba(0,62,88,0.06)]">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 duration-200 text-[#00658d]">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#00658d]">AI Analysis Result</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[#00658d] font-extrabold tracking-tighter">Al-Derma</span>
+</div>
+</div>
+<div class="bg-slate-100 h-[1px] w-full"></div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-8">
+<!-- Result Hero Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="bg-primary-container/10 text-on-primary-container px-3 py-1 rounded-full text-[10px] font-label font-bold tracking-widest uppercase">AI-Generated Result</span>
+<span class="text-on-surface-variant text-xs font-label">Ref: #AD-8821</span>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+<div class="relative bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight mb-2">Probable: Eczema</h2>
+<p class="text-on-surface-variant leading-relaxed">Based on the visual patterns and your reported symptoms, the AI model identifies characteristics consistent with Atopic Dermatitis.</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Analysis Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Confidence Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_24px_rgba(0,62,88,0.04)] flex flex-col justify-between space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-label text-[11px] font-bold tracking-widest text-on-surface-variant uppercase">Confidence Score</h3>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-bold text-tertiary">78</span>
+<span class="text-xl font-headline font-medium text-tertiary-container">%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-[11px] text-tertiary font-medium">High Confidence Match</p>
+</div>
+</div>
+<!-- Image Preview Card -->
+<div class="relative rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,62,88,0.04)] aspect-square md:aspect-auto">
+<img class="w-full h-full object-cover" data-alt="Macro close-up of a skin texture showing mild redness and dry patches, professional clinical photography lighting, soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG4fKBrvcEAePIsuAi_fxd_z_hyWRW9LYKtMR-3qMtajL2q4Jqc0lbRAgQupuMkmeDguOLS5L7xW2cnyUzTOa0me75a88e8Tpmy87_E9-Qie0pg5s1e8Vc5fR5hJgALHhNQbOrcuaa2EjAl5zLvv5q4IuCtM9lPyp7B0cWxAq_SnmcyuCiHoKZYPMUIe77fjKtBm3Du5_mhoYOYfIZ7AvVhScQt1C45Q2_HRGJrzt7vUasYT2ej8pUTDywH6Hl55M1hR3VAhpKilo"/>
+<div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/60 to-transparent">
+<span class="text-white text-[10px] font-label font-medium uppercase tracking-wider">Your Submitted Scan</span>
+</div>
+</div>
+</div>
+<!-- Information Card -->
+<section class="bg-surface-container-low p-8 rounded-xl space-y-4">
+<h3 class="font-headline text-xl font-bold text-primary">About Eczema</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">
+                Atopic dermatitis (eczema) is a condition that makes your skin red and itchy. It's common in children but can occur at any age. Atopic dermatitis is long lasting (chronic) and tends to flare periodically. It may be accompanied by asthma or hay fever.
+            </p>
+<div class="flex items-center gap-4 pt-2">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-300"></div>
+</div>
+<span class="text-[11px] text-on-surface-variant font-medium">Reviewed by 12 Dermatologists</span>
+</div>
+</section>
+<!-- Checklist Section -->
+<section class="space-y-6">
+<h3 class="font-headline text-xl font-bold px-1">Care &amp; Next Steps</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl border-b-2 border-primary/5">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<div>
+<h4 class="font-bold text-on-surface text-sm">Moisturize twice daily</h4>
+<p class="text-xs text-on-surface-variant mt-1">Use creams or ointments that seal in moisture immediately after bathing.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl border-b-2 border-primary/5">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<div>
+<h4 class="font-bold text-on-surface text-sm">Identify triggers</h4>
+<p class="text-xs text-on-surface-variant mt-1">Note any reactions to soaps, detergents, or environmental factors.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl border-b-2 border-primary/5">
+<span class="material-symbols-outlined text-secondary mt-1">medical_services</span>
+<div>
+<h4 class="font-bold text-on-surface text-sm text-secondary">Consult a Professional</h4>
+<p class="text-xs text-on-surface-variant mt-1">This AI analysis is for informational purposes. Schedule a clinical exam for diagnosis.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Primary Action -->
+<div class="pt-4">
+<button class="w-full py-5 px-6 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-headline font-bold text-lg shadow-lg active:scale-[0.98] transition-all">Concerned? Go to symptom questions</button>
+</div>
+<!-- Secondary Actions Grid -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-4 px-6 rounded-full bg-surface-container-lowest border border-outline-variant/20 text-primary font-headline font-semibold active:scale-95 transition-all">
+<span class="material-symbols-outlined">bookmark</span>
+                Save
+            </button>
+<button class="flex items-center justify-center gap-2 py-4 px-6 rounded-full bg-surface-container-lowest border border-outline-variant/20 text-primary font-headline font-semibold active:scale-95 transition-all">
+<span class="material-symbols-outlined">home</span>
+                Home
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 flex justify-around items-center px-4 pb-6 pt-3 z-50 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,62,88,0.04)]">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-all">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">History</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#00aeef]/10 dark:bg-[#00aeef]/20 text-[#00658d] dark:text-[#00aeef] rounded-2xl px-5 py-2 active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">content_paste_search</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Assess</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Profile</span>
+</div>
+</nav>
+<div class="fixed bottom-28 right-6 z-[60] flex flex-row-reverse items-center gap-3">
+<!-- Chatbot Button -->
+<button class="w-14 h-14 rounded-full bg-[#00AEEF] text-white shadow-[0_8px_32px_rgba(0,174,239,0.3)] flex items-center justify-center active:scale-90 transition-all hover:brightness-105">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">forum</span>
+</button>
+<!-- Label Tooltip -->
+<div class="bg-white dark:bg-slate-800 px-4 py-2.5 rounded-full shadow-lg border border-slate-100 dark:border-slate-700 animate-pulse">
+<span class="text-[#00AEEF] text-xs font-headline font-extrabold tracking-tight">Ask About the Result</span>
+</div>
+</div></body></html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Al-Derma | Smart Skin Disease Detection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#006e1c",
+                        "surface-container-low": "#eff4fa",
+                        "primary-fixed-dim": "#82cfff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#bdc8d1",
+                        "primary": "#00658d",
+                        "on-primary-fixed-variant": "#004c6b",
+                        "on-surface-variant": "#3e4850",
+                        "secondary-container": "#5ce9fe",
+                        "inverse-primary": "#82cfff",
+                        "primary-fixed": "#c6e7ff",
+                        "on-secondary-fixed": "#001f24",
+                        "inverse-surface": "#2c3135",
+                        "surface-variant": "#dee3e8",
+                        "on-primary-fixed": "#001e2d",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "surface-tint": "#00658d",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "on-background": "#171c20",
+                        "on-secondary-fixed-variant": "#004f58",
+                        "background": "#f5faff",
+                        "surface-container-high": "#e4e9ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f5faff",
+                        "secondary": "#006874",
+                        "secondary-fixed": "#98f0ff",
+                        "outline": "#6e7881",
+                        "on-secondary-container": "#006773",
+                        "on-tertiary-container": "#00430e",
+                        "on-tertiary-fixed": "#002204",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#003e58",
+                        "tertiary-fixed": "#94f990",
+                        "surface-container-highest": "#dee3e8",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-surface": "#171c20",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eaeef4",
+                        "secondary-fixed-dim": "#45d8ed",
+                        "inverse-on-surface": "#ecf1f7",
+                        "surface": "#f5faff",
+                        "primary-container": "#00aeef",
+                        "tertiary-container": "#54b757",
+                        "surface-dim": "#d6dae0"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #00aeef 0%, #5ce9fe 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed antialiased">
+<header class="fixed top-0 w-full z-50 glass-header shadow-[0_8px_24px_rgba(0,62,88,0.06)]">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+<span class="text-[#00658d] font-headline font-extrabold text-xl tracking-tighter">Al-Derma</span>
+</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="bg-slate-100 h-[1px] w-full self-end"></div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-10">
+<section class="text-center space-y-4">
+<h1 class="font-headline font-bold text-3xl md:text-4xl text-on-surface tracking-tight leading-tight">
+                Smart Skin Disease <br/> <span class="text-primary">Detection Assistant</span>
+</h1>
+<p class="text-on-surface-variant text-base md:text-lg max-w-md mx-auto leading-relaxed">
+                Empowering your health journey with high-precision AI skin analysis and professional medical insights.
+            </p>
+</section>
+<section class="relative">
+<div class="absolute -top-12 -right-8 w-48 h-48 bg-primary-container/10 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-12 -left-8 w-40 h-40 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group relative bg-surface-container-lowest p-6 rounded-3xl shadow-[0_8px_24px_rgba(0,62,88,0.06)] border border-outline-variant/20 hover:shadow-[0_12px_32px_rgba(0,62,88,0.1)] transition-all duration-300 overflow-hidden cursor-pointer">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">camera_enhance</span>
+</div>
+<div class="flex flex-col h-full space-y-4 relative z-10">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-xl text-on-surface">AI Photo Scan</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-snug">Capture a clear photo of the skin concern for instant AI analysis.</p>
+</div>
+<div class="pt-4 flex items-center text-primary font-semibold text-sm">
+                            Start Scan
+                            <span class="material-symbols-outlined ml-1 text-base">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container-lowest p-6 rounded-3xl shadow-[0_8px_24px_rgba(0,62,88,0.06)] border border-outline-variant/20 hover:shadow-[0_12px_32px_rgba(0,62,88,0.1)] transition-all duration-300 overflow-hidden cursor-pointer">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">clinical_notes</span>
+</div>
+<div class="flex flex-col h-full space-y-4 relative z-10">
+<div class="w-14 h-14 rounded-2xl bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">quiz</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-xl text-on-surface">Symptom Questions</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-snug">Answer a few clinical questions to help identify potential issues.</p>
+</div>
+<div class="pt-4 flex items-center text-secondary font-semibold text-sm">
+                            Begin Quiz
+                            <span class="material-symbols-outlined ml-1 text-base">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<div class="bg-surface-container-low p-6 rounded-3xl space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">info</span>
+<div>
+<h4 class="font-headline font-bold text-sm text-on-surface uppercase tracking-wider">Medical Disclaimer</h4>
+<p class="text-on-surface-variant text-xs leading-relaxed mt-1 italic">
+                            Al-Derma's AI analysis is for informational purposes only and is not a clinical diagnosis. Always seek the advice of a qualified physician or dermatologist for any medical condition. Do not disregard professional medical advice because of information presented in this app.
+                        </p>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-t border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 overflow-hidden">
+<img alt="Doctor profile" data-alt="professional portrait of a female dermatologist in a white medical coat smiling warmly in a clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkNfliRIFJ_W-XPgld9W4Wpt9ydV53UaI4c661FiDL1j4YV6pU6oatSxvGAFd8Tg3KX17BlL5_lVK0yBo4Jt7qSchrbRku47-VaM-XJfL8PJBFvrbYRQ8tPJcTlqKEsbefLBuDh7uM4hKl0tmEJ9tIfaiQHZWQ5IWPsemNqeB9--Syg5VvinmfFhXxQ5nC3Hgjl7ygKRkEmWwdAb1EzrsnpqEykHvdfb6Ly1GdKMU4roHUD9GRgO6dUhiey8jP4Zo4sI5RSi79k6I"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-300 overflow-hidden">
+<img alt="Doctor profile" data-alt="male medical professional in blue scrubs with a stethoscope around his neck looking confident in a modern hospital hallway" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5RvWTVLYB4l_UU7-ZiALNImYyjjmhEaoQNmz8vKtG471UrgCV4fMuwL3h77f99JSLTXJVLSudZvk9nKZO3LmdOBuHTBayu7eeX4DMvmwxS-e8EGQqBfo-x7qJcMsTn8TYQUYz44Ck5BCOVzJCR99j8Nerr3UHuDA0Kr7WfrBXRUNLvvRsLMa8mQSJ4W6GjDYb8BdwJbeNlu96lb609Y3peO_NoDa8kQBn2qbvTMiQBCoJ8dEZFOox2DnVeIRN2CK_MAa5_Fe1FQw"/>
+</div>
+</div>
+<p class="text-[11px] font-label text-on-surface-variant font-medium">TRUSTED BY 500+ DERMATOLOGISTS GLOBALLY</p>
+</div>
+</div>
+<button class="w-full hero-gradient text-on-primary font-headline font-bold py-4 rounded-full shadow-lg shadow-primary/25 hover:opacity-90 active:scale-95 transition-all duration-200">
+                Continue to Assessment
+            </button>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-white shadow-[0_-4px_20px_rgba(0,62,88,0.04)] rounded-t-3xl md:hidden">
+<div class="flex justify-around items-center px-4 pb-6 pt-3">
+<button class="flex flex-col items-center justify-center bg-[#00aeef]/10 text-[#00658d] rounded-2xl px-5 py-2 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">History</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined">content_paste_search</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Assess</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-[#00658d] active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-[11px] font-medium tracking-wide uppercase mt-1">Profile</span>
+</button>
+</div>
+</nav>
+<footer class="hidden md:block py-10 px-6 border-t border-outline-variant/20 bg-surface-container-low text-center">
+<div class="max-w-4xl mx-auto space-y-4">
+<p class="text-on-surface-variant text-sm">© 2024 Al-Derma Medical Technology Group. All rights reserved.</p>
+<div class="flex justify-center gap-6 text-xs font-label text-primary font-semibold uppercase tracking-widest">
+<a class="hover:underline" href="#">Privacy Policy</a>
+<a class="hover:underline" href="#">Terms of Service</a>
+<a class="hover:underline" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

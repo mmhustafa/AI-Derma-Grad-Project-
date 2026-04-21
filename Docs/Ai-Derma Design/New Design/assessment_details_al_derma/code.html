@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#82cfff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#003e58",
+                        "surface-container-low": "#eff4fa",
+                        "secondary-fixed-dim": "#45d8ed",
+                        "on-secondary-fixed": "#001f24",
+                        "surface-dim": "#d6dae0",
+                        "outline-variant": "#bdc8d1",
+                        "on-surface": "#171c20",
+                        "primary-fixed-dim": "#82cfff",
+                        "on-tertiary-fixed": "#002204",
+                        "surface-bright": "#f5faff",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "error-container": "#ffdad6",
+                        "outline": "#6e7881",
+                        "error": "#ba1a1a",
+                        "primary-container": "#00aeef",
+                        "tertiary": "#006e1c",
+                        "surface": "#f5faff",
+                        "surface-container": "#eaeef4",
+                        "secondary": "#006874",
+                        "primary-fixed": "#c6e7ff",
+                        "on-tertiary-container": "#00430e",
+                        "inverse-surface": "#2c3135",
+                        "surface-variant": "#dee3e8",
+                        "tertiary-container": "#54b757",
+                        "on-secondary-fixed-variant": "#004f58",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#00658d",
+                        "inverse-on-surface": "#ecf1f7",
+                        "background": "#f5faff",
+                        "on-secondary-container": "#006773",
+                        "on-primary-fixed-variant": "#004c6b",
+                        "on-surface-variant": "#3e4850",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "secondary-container": "#5ce9fe",
+                        "surface-container-highest": "#dee3e8",
+                        "tertiary-fixed": "#94f990",
+                        "primary": "#00658d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e4e9ee",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001e2d",
+                        "secondary-fixed": "#98f0ff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#171c20"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-layering-no-border {
+            border: none !important;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- TopAppBar Shell -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg fixed top-0 w-full z-50 shadow-[0_8px_24px_rgba(0,62,88,0.06)] tonal-layering-no-border">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#00658d] dark:text-[#00aeef] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#00658d]">Assessment Details</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[#00658d] dark:text-[#00aeef] hover:bg-slate-50 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-32 max-w-2xl mx-auto">
+<!-- Hero Assessment Image -->
+<section class="relative w-full h-80 overflow-hidden bg-surface-container">
+<img alt="Clinical skin scan" class="w-full h-full object-cover" data-alt="Close-up macro photography of a skin area with clinical lighting, showing detailed texture for medical assessment on a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHz7pbrLL9Nl7Tfrc6E2Y1FlYgo1HMoJST-L1ff2Dh2xn2JSQGhd8WieNd3rMzi2I-z8THyuef37XUEB7gv5rJ_R8pueDLtV0YN-Diexg_bjcB_9FtBCaYeydLELtQcS17-FU1o-fvq28r0cEZf9wELoS-5XdUT3TNYPhLYKPo3qgYf5YgypOqBRgJc9IWjlJWwAylLrfZqsHQknMK2w_zGWzcs3LSnMPI-GT3goFfA4Bg2L3LvqBmgBicNHq-3jokNXj7aAmYsik"/>
+<div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-xs font-bold font-label tracking-wider uppercase">Scanned Image</span>
+</div>
+</section>
+<div class="px-6 -mt-8 relative z-10">
+<!-- Diagnosis Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_8px_24px_rgba(0,62,88,0.06)]">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Eczema</h2>
+<div class="flex flex-col items-end">
+<span class="text-tertiary font-headline text-xl font-bold">89% Confidence</span>
+<span class="font-label text-[10px] text-slate-500 uppercase tracking-widest mt-1">October 26, 2023</span>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed text-sm">Based on visual analysis and provided symptoms, this condition most closely resembles Atopic Dermatitis.</p>
+</div>
+<!-- Symptoms Section (Expandable UI Pattern) -->
+<section class="mt-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline text-lg font-bold text-on-surface">Symptoms Provided</h3>
+<button class="text-primary hover:bg-primary/5 p-1 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="font-label text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Itchiness</span>
+<p class="font-semibold text-on-surface">Severe</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="font-label text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Duration</span>
+<p class="font-semibold text-on-surface">5-7 Days</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="font-label text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Location</span>
+<p class="font-semibold text-on-surface">Inner Elbow</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="font-label text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Appearance</span>
+<p class="font-semibold text-on-surface">Red, Scaly</p>
+</div>
+</div>
+</section>
+<!-- Analysis Conclusion -->
+<section class="mt-12 bg-surface-container p-6 rounded-xl">
+<h3 class="font-headline text-lg font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+                    How We Reached This Conclusion
+                </h3>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface text-sm">Visual Pattern Matching</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">The irregular border and erythematous patches are consistent with typical eczema manifestations.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface text-sm">Symptom Correlation</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">High reported itchiness levels correlate with active flare-up cycles in dermatitis.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface text-sm">Location Probability</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Inner elbow flexures are a primary site for atopic eczema development.</p>
+</div>
+</li>
+</ul>
+</section>
+<!-- Recommended Care -->
+<section class="mt-12">
+<h3 class="font-headline text-lg font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="healing">healing</span>
+                    Recommended Care
+                </h3>
+<div class="space-y-4">
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-tertiary mr-3" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-medium text-on-surface">Apply fragrance-free moisturizer twice daily</span>
+</div>
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-tertiary mr-3" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-medium text-on-surface">Avoid hot showers and harsh soaps</span>
+</div>
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-tertiary mr-3" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-medium text-on-surface">Consult a dermatologist if symptoms persist</span>
+</div>
+</div>
+</section>
+<!-- Disclaimer Box -->
+<div class="mt-12 p-5 bg-secondary-container/20 rounded-2xl flex gap-4 items-start">
+<span class="material-symbols-outlined text-primary mt-0.5" data-icon="info">info</span>
+<p class="text-xs text-on-primary-container leading-relaxed">
+<strong>Disclaimer:</strong> This assessment is powered by AI and does not constitute a formal medical diagnosis. Please consult a qualified healthcare professional for medical advice and treatment.
+                </p>
+</div>
+<!-- Bottom Action - Destructive -->
+<div class="mt-12 mb-20">
+<button class="w-full bg-error text-on-error py-4 rounded-full font-headline font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 duration-200 shadow-lg shadow-error/20">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+                    Delete Assessment Record
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed for focused detail view) -->
+<!-- Explicitly hidden as per Shell Visibility Rules for Task-Focused sub-pages -->
+</body></html>

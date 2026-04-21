@@ -1,10 +1,14 @@
-﻿namespace AI_Derma.Core.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AI_Derma.Core.Models
 {
     public class DiagnosticResult
     {
         public int Id { get; set; }
 
         public string?UserId { get; set; }
+
+        [JsonIgnore]
         public ApplicationUser User { get; set; }
 
         public int? DiseaseId { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace AI_Derma.Core.Models
 {
@@ -9,8 +10,9 @@ namespace AI_Derma.Core.Models
     {
         public string Gender { get; set; }
 
-        public int Age { get; set; } 
+        public int Age { get; set; }
 
+        [JsonIgnore]
         public ICollection<DiagnosticResult> DiagnosticResults { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
     }

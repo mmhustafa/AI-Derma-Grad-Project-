@@ -39,11 +39,11 @@
       "options": [
         {
           "val": "type:0-1-1-1",
-          "label": "Yes, I have silvery scales (Psoriasis symptoms)"
+          "label": "Yes, I have silvery scales "
         },
         {
           "val": "type:0-1-1-2",
-          "label": "No, it's more of oozing blisters (Eczema symptoms)"
+          "label": "No, it's more of oozing blisters "
         }
       ]
     },

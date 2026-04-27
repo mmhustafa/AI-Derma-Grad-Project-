@@ -33,6 +33,60 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _logout() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.surfaceContainerLowest,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          'Logout',
+          style: AppTextStyles.titleMedium.copyWith(
+            color: AppColors.onSurface,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to logout?',
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: AppColors.onSurfaceVariant,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(
+              'Logout',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    await StorageService.clearAll();
+
+    if (!mounted) return;
+    context.go('/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               FadeInDown(
                 child: _buildHeader(context),
               ),
 
               const SizedBox(height: 32),
 
-              // Hero Card
               FadeInUp(
                 delay: const Duration(milliseconds: 200),
                 child: _buildHeroCard(),
@@ -59,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 32),
 
-              // Feature Cards
               FadeInUp(
                 delay: const Duration(milliseconds: 400),
                 child: _buildFeatureCards(),
@@ -67,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 32),
 
-              // Tips Section
               FadeInUp(
                 delay: const Duration(milliseconds: 600),
                 child: _buildTipsSection(),
@@ -75,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 32),
 
-              // Recent Scans
               FadeInUp(
                 delay: const Duration(milliseconds: 800),
                 child: _buildRecentScans(),
@@ -136,30 +185,48 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            gradient: AppColors.primaryGradient,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withOpacity(0.3),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              _username.isNotEmpty ? _username[0].toUpperCase() : 'U',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+        Row(
+          children: [
+            IconButton(
+              tooltip: 'Logout',
+              icon: const Icon(Icons.logout_rounded, size: 22),
+              color: AppColors.onSurfaceVariant,
+              onPressed: _logout,
+              style: IconButton.styleFrom(
+                backgroundColor:
+                    AppColors.onSurfaceVariant.withOpacity(0.08),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
-          ),
+            const SizedBox(width: 8),
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  _username.isNotEmpty ? _username[0].toUpperCase() : 'U',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

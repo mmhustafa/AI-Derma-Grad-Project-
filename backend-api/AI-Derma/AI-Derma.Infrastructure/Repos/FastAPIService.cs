@@ -20,16 +20,20 @@ namespace AI_Derma.Infrastructure.Repos
 
         public async Task<FastApiNextStepResponse> GetNextStepAsync(List<string> facts)
         {
-            var response = await _httpClient.PostAsJsonAsync("/kb/next-step", new { facts });
-            response.EnsureSuccessStatusCode();
+            
+         
+                var response = await _httpClient.PostAsJsonAsync("/kb/next-step", new { facts });
+              //  response.EnsureSuccessStatusCode();
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
 
-            var result = await response.Content.ReadFromJsonAsync<FastApiNextStepResponse>(options);
+                var result = await response.Content.ReadFromJsonAsync<FastApiNextStepResponse>(options);
+            
             return result ?? new FastApiNextStepResponse();
+
         }
 
         public async Task<(string disease, float confidence)> PredictImageAsync(IFormFile file)

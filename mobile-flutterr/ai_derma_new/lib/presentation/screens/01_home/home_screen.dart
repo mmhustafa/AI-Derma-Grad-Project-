@@ -7,6 +7,7 @@ import '../../../config/theme/app_colors.dart';
 import '../../../config/theme/app_text_styles.dart';
 import '../../../config/routes/app_router.dart';
 import '../../../core/widgets/bottom_nav_bar.dart';
+import '../../../core/services/storage_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +18,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentNavIndex = 0;
+  String _username = '...';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final name = await StorageService.getUsername();
+    if (mounted && name != null) {
+      setState(() => _username = name);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Hello, Alex',
+              'Hello, $_username',
               style: AppTextStyles.headlineMedium.copyWith(
                 color: AppColors.onSurface,
               ),
@@ -135,10 +150,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          child: const Center(
+          child: Center(
             child: Text(
-              'A',
-              style: TextStyle(
+              _username.isNotEmpty ? _username[0].toUpperCase() : 'U',
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w700,

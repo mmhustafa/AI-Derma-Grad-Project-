@@ -1,8 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ✅ REQUIRED: Allow network access (without this ALL network calls fail) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- ✅ REQUIRED: Allow HTTP (non-HTTPS) traffic to local backend on Android 9+ -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:label="ai_derma_new"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <!--
+            android:usesCleartextTraffic="true"
+            REQUIRED for HTTP (non-HTTPS) connections on Android 9+.
+            Without this, all HTTP calls to http://192.168.x.x are silently blocked.
+        -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,6 +44,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.

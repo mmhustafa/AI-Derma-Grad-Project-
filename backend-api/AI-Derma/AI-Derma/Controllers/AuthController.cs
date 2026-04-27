@@ -1,10 +1,11 @@
-﻿using AI_Derma.Core.DTOs;
+using AI_Derma.Core.DTOs;
 using AI_Derma.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -23,11 +24,18 @@ namespace AI_Derma.Controllers
             this.config = config;
         }
 
-        // Register a user 
+        // Register a user
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterDTO model)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+                return BadRequest(string.Join(" ", errors));
+            }
 
             var user = new ApplicationUser
             {
@@ -43,16 +51,15 @@ namespace AI_Derma.Controllers
                 return Ok("User registered Successfully.");
             }
 
-            foreach (var error in result.Errors)
-                ModelState.AddModelError("", error.Description);
-
-            return BadRequest(ModelState);
+            // Return all Identity errors as a single readable string
+            var identityErrors = string.Join(" ", result.Errors.Select(e => e.Description));
+            return BadRequest(identityErrors);
         }
 
 
         // Login and return a JWT token
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

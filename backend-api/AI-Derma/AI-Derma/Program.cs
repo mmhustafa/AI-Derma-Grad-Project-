@@ -11,9 +11,19 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ── Bind to all network interfaces so physical devices can reach the API ──────
+// Without this, the backend only listens on localhost and cannot be
+// reached from a phone on the same WiFi network.
+builder.WebHost.UseUrls("http://0.0.0.0:5232", "https://0.0.0.0:7232");
+
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Accept both camelCase and PascalCase from clients
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 
@@ -49,12 +59,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:5175", "http://localhost:4200")
+        // Allow any origin so that physical Android/iOS devices
+        // on the local network can call the API without CORS errors.
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowAnyMethod();
+        // NOTE: AllowAnyOrigin() is incompatible with AllowCredentials().
+        // Cookie-based auth is not used here (JWT in header), so this is safe.
     });
 });
 
@@ -92,9 +105,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// ── IMPORTANT: Do NOT use HttpsRedirection when testing from physical devices ──
+// Redirecting HTTP → HTTPS causes silent failures because the device
+// cannot verify a dev HTTPS certificate. Comment it out for local dev.
+// app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 

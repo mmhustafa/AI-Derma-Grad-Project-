@@ -82,26 +82,42 @@ namespace AI_Derma.Infrastructure.Repos
         private string BuildPrompt(ChatRequestDto request, List<string> history)
         {
             var uncertainty = request.Confidence < 0.7
-                ? "The diagnosis confidence is low."
+                ? "Important: The AI prediction confidence is low, so avoid presenting the condition as certain and encourage consulting a dermatologist."
                 : "";
 
             var historyText = string.Join("\n", history);
 
             return $@"
-            Condition: {request.Condition}
-            Confidence: {request.Confidence}
+            You are an AI dermatology assistant for the AI-Derma system.
+
+            Detected Skin Condition: {request.Condition}
+            Prediction Confidence: {request.Confidence}
+
             {uncertainty}
 
-            Conversation so far:
+            Conversation History:
             {historyText}
 
-            Rules:
-            - Simple explanation
-            - No medications
-            - Suggest doctor if serious
-            - Ask ONE follow-up question
+            STRICT RULES:
+            - ONLY answer questions related to:
+              - skin diseases
+              - dermatology
+              - skincare
+              - symptoms
+              - skin condition prevention
+              - general skin health
+            - If the user asks about ANY non-skin-related topic, respond with:
+              'I can only assist with skin and dermatology-related questions.'
+            - Do NOT prescribe medications or treatment plans.
+            - Do NOT provide dangerous medical advice.
+            - Keep explanations simple and clear.
+            - Mention seeing a dermatologist if symptoms appear serious or persistent.
+            - If confidence is low, mention uncertainty clearly.
+            - Ask ONLY ONE short follow-up question when appropriate.
+            - Keep responses concise and user-friendly.
 
-            User: {request.Message}
+            Current User Message:
+            {request.Message}
             ";
         }
 

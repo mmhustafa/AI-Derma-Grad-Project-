@@ -3,6 +3,7 @@ using AI_Derma.Core.Interfaces;
 using AI_Derma.Core.Models;
 using AI_Derma.Infrastructure.Data;
 using AI_Derma.Infrastructure.Repos;
+using AI_Derma.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
+builder.Services.AddScoped<CloudinaryService>();
 var expertSystemBaseUrl = builder.Configuration["ExpertSystem:BaseUrl"] ?? "http://127.0.0.1:8000";
 
 builder.Services.AddHttpClient<IFastAPIService, FastAPIService>(client =>
@@ -95,6 +97,8 @@ builder.Services.AddAuthentication(options => {
             Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
     };
 });
+builder.Services.Configure<CloudinarySettings>(
+    builder.Configuration.GetSection("CloudinarySettings"));
 
 var app = builder.Build();
 

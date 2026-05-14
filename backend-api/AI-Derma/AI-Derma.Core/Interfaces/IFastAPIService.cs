@@ -8,6 +8,6 @@ namespace AI_Derma.Core.Interfaces
     public interface IFastAPIService
     {
         Task<FastApiNextStepResponse> GetNextStepAsync(List<string> facts);
-        Task<(string disease, float confidence)> PredictImageAsync(IFormFile file);
+        Task<ImageDiagnosisResponseDto> PredictImageAsync(IFormFile file);
     }
 }

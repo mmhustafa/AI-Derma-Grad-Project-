@@ -21,15 +21,17 @@ namespace AI_Derma.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFastAPIService fastAPIService;
         private readonly IKBMetadata KB;
+        private readonly CloudinaryService cloudinaryService;
 
         public DiagnosticController(IUnitofWork _unitofWork, 
             UserManager<ApplicationUser> _userManager, 
-            IFastAPIService _fastAPIService, IKBMetadata _kB)
+            IFastAPIService _fastAPIService, IKBMetadata _kB, CloudinaryService _cloudinaryService)
         {
             this.unitofWork = _unitofWork;
             this.userManager = _userManager;
             this.fastAPIService = _fastAPIService;
             this.KB = _kB;
+            this.cloudinaryService = _cloudinaryService;
         }
 
         [HttpPost("next-step")]
@@ -127,6 +129,65 @@ namespace AI_Derma.Controllers
             }
         }
 
+        
+        [HttpPost("predict-image")]
+        public async Task<IActionResult> PredictImage([FromForm] ImageDiagnosisRequestDto request)
+        {
+            if (request.Image == null || request.Image.Length == 0)
+            {
+                return BadRequest("Image is required.");
+            }
+
+            try
+            {
+                // Upload image to Cloudinary
+                var imageUrl = await cloudinaryService.UploadImageAsync(request.Image);
+
+                // Send image to FastAPI model
+                var result = await fastAPIService.PredictImageAsync(request.Image);
+
+                var user = await userManager.GetUserAsync(User);
+
+                // Get disease from database
+                var disease = await unitofWork.Diseases.GetSingleAsync(
+                    d => d.DiseaseName.ToLower() == result.Disease.ToLower()
+                );
+
+                // Save diagnostic result
+                var diagnostic = new DiagnosticResult
+                {
+                    UserId = user?.Id,
+
+                    DiseaseId = disease?.Id,
+
+                    ImageUrl = imageUrl,
+
+                    SourceType = "AI Model",
+
+                    ConfidenceScore = result.Confidence
+                };
+
+                await unitofWork.DiagnosticResults.AddAsync(diagnostic);
+
+                await unitofWork.CompleteAsync();
+
+                return Ok(new
+                {
+                    Disease = result.Disease,
+                    Confidence = result.Confidence,
+                    Top3 = result.Top3,
+                    DiagnosticResultId = diagnostic.Id
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Prediction failed",
+                    error = ex.Message
+                });
+            }
+        }
 
     }
 }

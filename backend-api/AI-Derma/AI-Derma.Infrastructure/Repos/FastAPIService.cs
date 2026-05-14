@@ -36,10 +36,24 @@ namespace AI_Derma.Infrastructure.Repos
 
         }
 
-        public async Task<(string disease, float confidence)> PredictImageAsync(IFormFile file)
+        public async Task<ImageDiagnosisResponseDto> PredictImageAsync(IFormFile file)
         {
-            // TODO: call CNN
-            return ("", 0.0f);
+            using var content = new MultipartFormDataContent();
+            using var stream = file.OpenReadStream();
+            var fileContent = new StreamContent(stream);
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+            content.Add(fileContent, "file", file.FileName);
+
+            var response = await _httpClient.PostAsync("/predict", content);
+            response.EnsureSuccessStatusCode();
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var result = await response.Content.ReadFromJsonAsync<ImageDiagnosisResponseDto>(options);
+            return result ?? new ImageDiagnosisResponseDto();
         }
     }
 }

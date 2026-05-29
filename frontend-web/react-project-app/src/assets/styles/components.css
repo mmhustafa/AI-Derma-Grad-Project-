@@ -130,6 +130,17 @@
   color: #b45309;
 }
 
+.badge-confirmed {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
 /* ===== DIVIDERS ===== */
 .divider {
   height: 1px;

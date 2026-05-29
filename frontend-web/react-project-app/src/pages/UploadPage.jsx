@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { diagnosticAPI } from '../services/api';
 import '../assets/styles/upload.css';
 import '../assets/styles/components.css';
 
@@ -11,9 +12,13 @@ export default function UploadPage() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [error, setError] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileSelect = (file) => {
     if (!file || !file.type.startsWith('image/')) return;
+    setError('');
+    setSelectedFile(file);
     const reader = new FileReader();
     reader.onload = (e) => setPreviewUrl(e.target.result);
     reader.readAsDataURL(file);
@@ -37,11 +42,49 @@ export default function UploadPage() {
   const handleDragLeave = () => setIsDragOver(false);
 
   const handleAnalyze = async () => {
-    if (!previewUrl) return;
+    if (!previewUrl || !selectedFile) return;
+    
     setAnalyzing(true);
-    await new Promise((r) => setTimeout(r, 2000));
-    setAnalyzing(false);
-    navigate('/result');
+    setError('');
+
+    try {
+      // Store image preview in sessionStorage for result page
+      sessionStorage.setItem('uploadedImagePreview', previewUrl);
+
+      // Call the prediction API
+      const response = await diagnosticAPI.predictImage(selectedFile);
+      const { disease, confidence, top3, diagnosticResultId } = response.data;
+
+      // Determine flow based on confidence
+      if (confidence >= 0.90) {
+        // High confidence: navigate directly to result page
+        navigate('/result', {
+          state: {
+            diseaseName: disease,
+            confidence: confidence,
+            source: 'ai',
+            diagnosticResultId: diagnosticResultId,
+            top3: top3 || [],
+            imageConfirmationRequired: false,
+            userConfirmedSymptoms: null,
+          },
+        });
+      } else {
+        // Low confidence: navigate to confirmation questions page
+        navigate('/confirmation', {
+          state: {
+            diseaseName: disease,
+            confidence: confidence,
+            diagnosticResultId: diagnosticResultId,
+            top3: top3 || [],
+            imageFile: selectedFile,
+          },
+        });
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Failed to analyze image. Please try again.');
+      setAnalyzing(false);
+    }
   };
 
   return (
@@ -115,6 +158,9 @@ export default function UploadPage() {
           />
         </div>
 
+        {/* Error Banner */}
+        {error && <div className="error-banner">{error}</div>}
+
         {/* Lower Section */}
         <div className="upload-lower">
           {/* Image Preview */}
@@ -167,7 +213,11 @@ export default function UploadPage() {
                   }}
                   onMouseEnter={(e) => { e.target.style.background = 'var(--danger)'; e.target.style.color = 'white'; }}
                   onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--danger)'; }}
-                  onClick={() => setPreviewUrl(null)}
+                  onClick={() => {
+                    setPreviewUrl(null);
+                    setSelectedFile(null);
+                    setError('');
+                  }}
                   id="remove-image-btn"
                 >
                   Remove image
@@ -273,4 +323,5 @@ export default function UploadPage() {
       `}</style>
     </div>
   );
-}
+}  
+

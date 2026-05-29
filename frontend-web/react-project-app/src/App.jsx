@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import SymptomPage from "./pages/SymptomPage";
 import UploadPage from "./pages/UploadPage";
+import ConfirmationQuestionsPage from "./pages/ConfirmationQuestionsPage";
 import AssessmentResultPage from "./pages/AssessmentResultPage";
 import ClinicalAssistantPage from "./pages/ClinicalAssistantPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/assess" element={<SymptomPage />} />
           <Route path="/upload" element={<UploadPage />} />
+          <Route path="/confirmation" element={<ConfirmationQuestionsPage />} />
           <Route path="/result" element={<AssessmentResultPage />} />
           <Route path="/assistant" element={<ClinicalAssistantPage />} />
           <Route path="/history" element={<HistoryPage />} />

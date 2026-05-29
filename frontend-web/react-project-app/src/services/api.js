@@ -63,6 +63,15 @@ export const diagnosticAPI = {
   saveAnswers: (answersData) => api.post("/Diagnostic/save-answers", answersData),
   getDiseaseDetails: (diseaseName) =>
     api.get(`/Diagnostic/disease-details?name=${encodeURIComponent(diseaseName)}`),
+  predictImage: (imageFile) => {
+    const formData = new FormData();
+    formData.append("Image", imageFile);
+    return api.post("/diagnostic/predict-image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 // History APIs

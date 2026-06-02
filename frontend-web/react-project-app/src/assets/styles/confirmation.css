@@ -197,16 +197,16 @@
 }
 
 .btn-yes {
-  background: var(--success-light);
-  color: var(--success);
-  border-color: var(--success);
+  background: #f5f5f5;
+  color: #1f2937;
+  border-color: #d1d5db;
 }
 
 .btn-yes:hover:not(:disabled) {
-  background: var(--success);
-  color: white;
+  background: #e5e7eb;
+  color: #1f2937;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-yes:active:not(:disabled) {
@@ -214,16 +214,16 @@
 }
 
 .btn-no {
-  background: var(--danger-light);
-  color: var(--danger);
-  border-color: var(--danger);
+  background: #f5f5f5;
+  color: #1f2937;
+  border-color: #d1d5db;
 }
 
 .btn-no:hover:not(:disabled) {
-  background: var(--danger);
-  color: white;
+  background: #e5e7eb;
+  color: #1f2937;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-no:active:not(:disabled) {
@@ -237,8 +237,7 @@
 }
 
 .btn-icon {
-  font-size: 1.25rem;
-  font-weight: 700;
+  display: none;
 }
 
 /* Confirmation Footer */

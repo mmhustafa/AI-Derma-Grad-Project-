@@ -62,7 +62,7 @@ export const diagnosticAPI = {
   getNextStep: (payload) => api.post("/Diagnostic/next-step", payload),
   saveAnswers: (answersData) => api.post("/Diagnostic/save-answers", answersData),
   getDiseaseDetails: (diseaseName) =>
-    api.get(`/Diagnostic/disease-details?name=${encodeURIComponent(diseaseName)}`),
+    api.get("/Diagnostic/disease-details", { params: { name: diseaseName } }),
   predictImage: (imageFile) => {
     const formData = new FormData();
     formData.append("Image", imageFile);
@@ -84,8 +84,10 @@ export const historyAPI = {
 // Metadata APIs
 export const metadataAPI = {
   getKnowledgeBase: () => api.get("/Metadata/knowledge-base"),
-  getConfirmation: (diseaseName) =>
-    api.get(`/Metadata/confirmation/${diseaseName}`),
+  getConfirmation: (diseaseName) => {
+    const normalizedName = diseaseName.replace(/\s+/g, '');
+    return api.get(`/Metadata/confirmation/${normalizedName}`);
+  },
 };
 
 export default api;

@@ -65,7 +65,8 @@ export default function HistoryPage() {
 
   const filtered = useMemo(() => {
     if (activeFilter === "all") return items;
-    if (activeFilter === "questions") return items.filter((x) => x.id === "h3");
+    if (activeFilter === "ai") return items.filter((x) => x.title === "AI Analysis");
+    if (activeFilter === "questions") return items.filter((x) => x.title === "Knowledge Base Diagnosis");
     return items;
   }, [activeFilter, items]);
 

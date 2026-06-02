@@ -27,15 +27,34 @@ namespace AI_Derma.Controllers
         [HttpGet("confirmation/{diseaseName}")]
         public IActionResult GetConfirmationForDisease(string diseaseName)
         {
-            var metadata = _metadataService.questionsMetadata();
-
-            if (metadata.ConfirmationQuestions.ContainsKey(diseaseName))
+            if (string.IsNullOrWhiteSpace(diseaseName))
             {
-                var questions = metadata.ConfirmationQuestions[diseaseName];
-                return Ok(questions);
+                return BadRequest(new { message = "Disease name is required" });
             }
 
-            return Ok(new List<ConfirmationQuestion>());
+            var metadata = _metadataService.questionsMetadata();
+
+            // Remove spaces from the incoming disease name for comparison
+            var normalizedInput = System.Text.RegularExpressions.Regex.Replace(diseaseName, @"\s+", "");
+
+            // Find matching disease key by removing spaces from both for comparison
+            var diseaseKey = metadata.ConfirmationQuestions.Keys
+                .FirstOrDefault(k => 
+                {
+                    var normalizedKey = System.Text.RegularExpressions.Regex.Replace(k, @"\s+", "");
+                    return normalizedKey.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase);
+                });
+
+            if (diseaseKey != null)
+            {
+                var questions = metadata.ConfirmationQuestions[diseaseKey];
+                if (questions != null && questions.Count > 0)
+                {
+                    return Ok(questions);
+                }
+            }
+
+            return BadRequest(new { message = $"No confirmation questions found for disease: {diseaseName}" });
         }
     }
 }

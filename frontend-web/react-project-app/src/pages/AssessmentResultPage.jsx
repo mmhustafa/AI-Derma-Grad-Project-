@@ -56,6 +56,15 @@ export default function AssessmentResultPage() {
   const isHighConfidence = originalConfidence >= 0.90;
   const displayedConfidence = userConfirmedSymptoms === true ? Math.max(originalConfidence, 0.90) : originalConfidence;
 
+  const getConfidenceColor = () => {
+    const percentage = displayedConfidence * 100;
+    if (percentage >= 80) return '#10b981'; // green
+    if (percentage >= 60) return '#84cc16'; // lime
+    if (percentage >= 40) return '#eab308'; // yellow
+    if (percentage >= 20) return '#f97316'; // orange
+    return '#ef4444'; // red
+  };
+
   const diagnosisLabel = diseaseDetails?.diseaseName || diseaseName;
   const description = diseaseDetails?.description || "No disease information available.";
   const nextSteps = diseaseDetails?.careInstructions
@@ -159,9 +168,9 @@ export default function AssessmentResultPage() {
               </div>
               <div className="result-metric-row">
                 <div className="result-metric-bar">
-                  <div className="result-metric-fill" style={{ width: metricWidth }} />
+                  <div className="result-metric-fill" style={{ width: metricWidth, backgroundColor: getConfidenceColor() }} />
                 </div>
-                <div className="result-metric-value">
+                <div className="result-metric-value" style={{ color: getConfidenceColor() }}>
                   {confidenceValue}
                   {userConfirmedSymptoms === true && originalConfidence < 0.90 && (
                     <span className="original-confidence">(was {(originalConfidence * 100).toFixed(1)}%)</span>
@@ -232,6 +241,9 @@ export default function AssessmentResultPage() {
                 <div className="notice-text">
                   <strong>High Confidence Prediction</strong>
                   <p>This prediction has sufficient confidence and does not require symptom verification.</p>
+                  <p className="confidence-optional-note">
+                    💡 Optionally, you can answer confirmation questions to increase your confidence even further in this diagnosis.
+                  </p>
                 </div>
               </div>
             )}

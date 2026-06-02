@@ -57,7 +57,7 @@ export default function ConfirmationQuestionsPage() {
       ...answers,
       {
         code: questionCode,
-        text: currentQuestion?.Text || '',
+        text: currentQuestion?.text || '',
         answer: 'Yes',
       },
     ]);
@@ -73,6 +73,15 @@ export default function ConfirmationQuestionsPage() {
   const handleNo = () => {
     // User answered NO - symptoms not confirmed
     navigateToResult(false);
+  };
+
+  const getConfidenceColor = () => {
+    const percentage = confidence * 100;
+    if (percentage >= 80) return '#10b981'; // green
+    if (percentage >= 60) return '#84cc16'; // lime
+    if (percentage >= 40) return '#eab308'; // yellow
+    if (percentage >= 20) return '#f97316'; // orange
+    return '#ef4444'; // red
   };
 
   const navigateToResult = async (symptomsConfirmed) => {
@@ -113,14 +122,28 @@ export default function ConfirmationQuestionsPage() {
       <div className="confirmation-page">
         <Navbar />
         <div className="confirmation-body">
-          <div className="error-banner">{error || 'No questions available'}</div>
-          <button
-            className="btn-back"
-            onClick={() => navigate(-1)}
-            style={{ marginTop: '20px' }}
-          >
-            Go Back
-          </button>
+          <div className="confirmation-header">
+            <div className="confirmation-eyebrow">Symptom Verification</div>
+            <h1 className="confirmation-title">Confirmation Questions Not Available</h1>
+          </div>
+          <div className="error-banner" style={{ marginTop: '24px' }}>
+            {error || 'No confirmation questions available for this diagnosis.'}
+          </div>
+          <div style={{ marginTop: '32px', display: 'flex', gap: '12px', justifyContent: 'center' }}>
+            <button
+              className="btn-back"
+              onClick={() => navigate(-1)}
+              style={{ padding: '10px 20px' }}
+            >
+              ← Go Back
+            </button>
+            <button
+              onClick={() => navigate('/result', { state: location.state })}
+              style={{ padding: '10px 20px', background: '#4f46e5', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '8px', fontWeight: '600' }}
+            >
+              Proceed to Result →
+            </button>
+          </div>
         </div>
         <Footer />
       </div>
@@ -149,7 +172,7 @@ export default function ConfirmationQuestionsPage() {
         <div className="confirmation-confidence-card">
           <div className="confidence-item">
             <div className="confidence-label">AI Confidence</div>
-            <div className="confidence-value">{(confidence * 100).toFixed(1)}%</div>
+            <div className="confidence-value" style={{ color: getConfidenceColor() }}>{(confidence * 100).toFixed(1)}%</div>
           </div>
           <div className="confidence-separator" />
           <div className="confidence-item">
@@ -171,7 +194,7 @@ export default function ConfirmationQuestionsPage() {
         {/* Question Card */}
         <div className="question-card-confirmation">
           <div className="question-number">Question {currentQuestionIndex + 1}</div>
-          <h2 className="question-text-confirmation">{currentQuestion?.Text || 'Loading question...'}</h2>
+          <h2 className="question-text-confirmation">{currentQuestion?.text || 'Loading question...'}</h2>
 
           {/* Yes/No Buttons */}
           <div className="confirmation-buttons">

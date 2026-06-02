@@ -90,7 +90,15 @@ namespace AI_Derma.Controllers
                 return BadRequest("Disease name is required.");
             }
 
-            var disease = await unitofWork.Diseases.GetSingleAsync(d => d.DiseaseName.ToLower() == name.Trim().ToLower());
+            var normalizedInput = System.Text.RegularExpressions.Regex.Replace(name, @"\s+", "");
+
+            var allDiseases = await unitofWork.Diseases.GetAllAsync();
+            var disease = allDiseases?.FirstOrDefault(d => 
+            {
+                var normalizedDbName = System.Text.RegularExpressions.Regex.Replace(d.DiseaseName, @"\s+", "");
+                return normalizedDbName.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase);
+            });
+
             if (disease == null)
             {
                 return NotFound("Disease not found.");

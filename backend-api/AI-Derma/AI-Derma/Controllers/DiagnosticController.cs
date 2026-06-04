@@ -20,16 +20,20 @@ namespace AI_Derma.Controllers
         private readonly IUnitofWork unitofWork;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFastAPIService fastAPIService;
+        private readonly IPredictionService predictionService;
         private readonly IKBMetadata KB;
         private readonly CloudinaryService cloudinaryService;
 
         public DiagnosticController(IUnitofWork _unitofWork, 
             UserManager<ApplicationUser> _userManager, 
-            IFastAPIService _fastAPIService, IKBMetadata _kB, CloudinaryService _cloudinaryService)
+            IFastAPIService _fastAPIService,
+            IPredictionService _predictionService,
+            IKBMetadata _kB, CloudinaryService _cloudinaryService)
         {
             this.unitofWork = _unitofWork;
             this.userManager = _userManager;
             this.fastAPIService = _fastAPIService;
+            this.predictionService = _predictionService;
             this.KB = _kB;
             this.cloudinaryService = _cloudinaryService;
         }
@@ -151,8 +155,8 @@ namespace AI_Derma.Controllers
                 // Upload image to Cloudinary
                 var imageUrl = await cloudinaryService.UploadImageAsync(request.Image);
 
-                // Send image to FastAPI model
-                var result = await fastAPIService.PredictImageAsync(request.Image);
+                // Send image to Prediction Service (port 8001)
+                var result = await predictionService.PredictImageAsync(request.Image);
 
                 var user = await userManager.GetUserAsync(User);
 

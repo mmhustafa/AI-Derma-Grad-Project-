@@ -38,11 +38,20 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IKBMetadata, KBMetadataRepository>();
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
 builder.Services.AddScoped<CloudinaryService>();
-var expertSystemBaseUrl = builder.Configuration["ExpertSystem:BaseUrl"] ?? "http://127.0.0.1:8000";
+
+// Configure FastAPI services with their respective ports
+var expertSystemBaseUrl = builder.Configuration["ExpertSystem:BaseUrl"] ?? "http://127.0.0.1:8002";
+var predictionServiceBaseUrl = builder.Configuration["PredictionService:BaseUrl"] ?? "http://127.0.0.1:8001";
 
 builder.Services.AddHttpClient<IFastAPIService, FastAPIService>(client =>
 {
     client.BaseAddress = new Uri(expertSystemBaseUrl);
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
+builder.Services.AddHttpClient<IPredictionService, PredictionService>(client =>
+{
+    client.BaseAddress = new Uri(predictionServiceBaseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);
 });
 

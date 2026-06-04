@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input as efficientnet_preprocess
 from PIL import Image
+import uvicorn
 
 MODEL_PATH  = "derma_model.keras"
 IMG_SIZE    = (224, 224)
@@ -75,3 +76,12 @@ async def predict(file: UploadFile = File(...)):
 @app.get("/health")
 def health():
     return {"status": "ok", "model_loaded": model is not None}
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8001,
+        log_level="info"
+    )

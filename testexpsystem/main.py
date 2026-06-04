@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import expert_logic 
+import uvicorn 
 
 app = FastAPI()
 
@@ -17,3 +18,12 @@ async def next_step(request: DiagnosisRequest):
         raise HTTPException(status_code=400, detail=result["message"])
         
     return result
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8002,
+        log_level="info"
+    )

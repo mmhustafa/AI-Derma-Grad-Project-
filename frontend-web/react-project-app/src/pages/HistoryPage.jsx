@@ -13,6 +13,12 @@ const FILTERS = [
   { id: "questions", label: "Questions" },
 ];
 
+/** Normalise confidence to 0‑100 whether API returns 0‑1 or 0‑100 */
+function toPercent(raw) {
+  const n = typeof raw === "number" ? raw : parseFloat(raw) || 0;
+  return n <= 1 ? Math.round(n * 100) : Math.round(n);
+}
+
 export default function HistoryPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -20,14 +26,14 @@ export default function HistoryPage() {
   const [diagnostics, setDiagnostics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [loadingId, setLoadingId] = useState(null); // track which card is loading
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const data = await historyService.getDiagnostics();
-        setDiagnostics(data);
+        setDiagnostics(Array.isArray(data) ? data : []);
       } catch (err) {
-        // For any error, just show empty state - don't redirect
         console.warn("Failed to load history:", err.message);
         setDiagnostics([]);
       } finally {
@@ -36,30 +42,76 @@ export default function HistoryPage() {
     };
 
     fetchHistory();
-  }, [navigate]);
+  }, []);
+
+  /** Open the full report by fetching /History/diagnostic/{id} first */
+  const handleViewReport = async (id, diseaseNameFromList) => {
+    setLoadingId(id);
+    try {
+      const detail = await historyService.getDiagnosticDetails(id);
+      console.log("[HistoryDetail] raw response:", detail);
+
+      // Disease info lives in the nested `disease` object
+      const disease = detail.disease || {};
+
+      // Resolve disease name from the nested object, then fallback chain
+      const resolvedName =
+        (typeof disease.diseaseName === "string" && disease.diseaseName.trim())
+          ? disease.diseaseName.trim()
+          : (typeof detail.diseaseName === "string" && detail.diseaseName.trim())
+            ? detail.diseaseName.trim()
+            : (typeof diseaseNameFromList === "string" && diseaseNameFromList.trim())
+              ? diseaseNameFromList.trim()
+              : "Unknown";
+
+      // Normalise confidence to 0–1
+      const rawConf = detail.confidenceScore;
+      const resolvedConf =
+        typeof rawConf === "number"
+          ? rawConf <= 1 ? rawConf : rawConf / 100
+          : 0;
+
+      // sourceType: "AI Model" → "ai",  "KB" → "expert"
+      const resolvedSource =
+        typeof detail.sourceType === "string" && detail.sourceType.toLowerCase().includes("kb")
+          ? "expert"
+          : "ai";
+
+      navigate("/result", {
+        state: {
+          diseaseName:        resolvedName,
+          confidence:         resolvedConf,
+          source:             resolvedSource,
+          diagnosticResultId: detail.id,
+          fromHistory:        true,
+          // Full raw payload — AssessmentResultPage reads disease + imageUrl from here
+          historyDetail:      detail,
+        },
+      });
+    } catch (err) {
+      console.error("Failed to load report:", err.message);
+      alert("Could not load the full report. Please try again.");
+    } finally {
+      setLoadingId(null);
+    }
+  };
 
   const items = useMemo(
     () =>
-      diagnostics.map((d) => ({
-        id: d.id,
-        risk:
-          d.confidenceScore > 80
-            ? "high"
-            : d.confidenceScore > 50
-              ? "moderate"
-              : "low",
-        title:
-          d.sourceType === "KB" ? "Knowledge Base Diagnosis" : "AI Analysis",
-        time: new Date(d.createdAt).toLocaleString(),
-        confidence: `${d.confidenceScore}%`,
-        badge:
-          d.confidenceScore > 80
-            ? "High risk"
-            : d.confidenceScore > 50
-              ? "Moderate"
-              : "Low risk",
-        disease: d.diseaseName,
-      })),
+      diagnostics.map((d) => {
+        const pct = toPercent(d.confidenceScore);
+        const risk = pct > 80 ? "low" : pct > 50 ? "moderate" : "high";
+        return {
+          id: d.id,
+          risk,
+          title: d.sourceType === "KB" ? "Knowledge Base Diagnosis" : "AI Analysis",
+          time: d.createdAt ? new Date(d.createdAt).toLocaleString() : "—",
+          confidencePct: pct,          // number 0‑100
+          confidenceLabel: `${pct}%`,  // display string
+          badge: pct > 80 ? "Low risk" : pct > 50 ? "Moderate" : "High risk",
+          disease: typeof d.diseaseName === "string" ? d.diseaseName : "",
+        };
+      }),
     [diagnostics],
   );
 
@@ -75,7 +127,8 @@ export default function HistoryPage() {
       <div className="history-page">
         <Navbar />
         <main className="history-body">
-          <div style={{ textAlign: "center", padding: "50px" }}>
+          <div className="history-loading">
+            <div className="history-spinner" />
             Loading history...
           </div>
         </main>
@@ -89,9 +142,7 @@ export default function HistoryPage() {
       <div className="history-page">
         <Navbar />
         <main className="history-body">
-          <div style={{ textAlign: "center", padding: "50px", color: "red" }}>
-            {error}
-          </div>
+          <div style={{ textAlign: "center", padding: "50px", color: "red" }}>{error}</div>
         </main>
         <Footer />
       </div>
@@ -115,14 +166,7 @@ export default function HistoryPage() {
 
           <div className="history-top-right">
             <div className="history-search">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-              >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
               </svg>
@@ -157,8 +201,6 @@ export default function HistoryPage() {
                 <span className="history-tag">Psoriasis</span>
               </div>
             </div>
-
-            
           </aside>
 
           {/* Main */}
@@ -179,13 +221,7 @@ export default function HistoryPage() {
                 <article key={it.id} className="history-card2">
                   <div className="history-card2-top">
                     <div className={`risk-pill ${it.risk}`}>{it.badge}</div>
-                    <button
-                      className="dots"
-                      type="button"
-                      aria-label="More options"
-                    >
-                      ⋮
-                    </button>
+                    <button className="dots" type="button" aria-label="More options">⋮</button>
                   </div>
 
                   <div className="history-card2-mid">
@@ -193,37 +229,49 @@ export default function HistoryPage() {
                     <div className="history-card2-time">{it.time}</div>
                   </div>
 
+                  {/* ── Confidence bar ── */}
                   <div className="history-meter">
                     <div className="history-meter-row">
-                      <span className="history-meter-label">
-                        Confidence score
-                      </span>
-                      <span className="history-meter-value">
-                        {it.confidence}
+                      <span className="history-meter-label">Confidence score</span>
+                      <span
+                        className="history-meter-value"
+                        style={{
+                          color:
+                            it.risk === "high"
+                              ? "#ef4444"
+                              : it.risk === "moderate"
+                              ? "#f59e0b"
+                              : "#22c55e",
+                        }}
+                      >
+                        {it.confidenceLabel}
                       </span>
                     </div>
                     <div className="history-meter-track">
                       <div
                         className={`history-meter-fill ${it.risk}`}
-                        style={{
-                          width: `${Math.min(100, Math.max(0, Number.parseFloat(it.confidence) || 0))}%`,
-                        }}
+                        style={{ width: `${it.confidencePct}%` }}
                       />
                     </div>
                   </div>
 
                   {it.disease && (
-                    <p className="history-note">Diagnosed: {it.disease}</p>
+                    <p className="history-note">Diagnosed: <strong>{it.disease}</strong></p>
                   )}
 
                   <div className="history-card2-bottom">
                     <button
                       className="history-link"
                       type="button"
-                      onClick={() => navigate(`/result?id=${it.id}`)}
+                      onClick={() => handleViewReport(it.id, it.disease)}
                       id={`history-view-${it.id}`}
+                      disabled={loadingId === it.id}
                     >
-                      View full report →
+                      {loadingId === it.id ? (
+                        <span className="history-link-loading">Loading…</span>
+                      ) : (
+                        "View full report →"
+                      )}
                     </button>
                     <span className="badge badge-primary">
                       {it.title.includes("AI") ? "AI" : "KB"}
@@ -240,9 +288,7 @@ export default function HistoryPage() {
               >
                 <div className="history-new-plus">+</div>
                 <div className="history-new-title">New assessment</div>
-                <div className="history-new-sub">
-                  Upload a new skin image for AI analysis
-                </div>
+                <div className="history-new-sub">Upload a new skin image for AI analysis</div>
               </button>
             </div>
           </div>

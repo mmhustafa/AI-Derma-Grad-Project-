@@ -1,7 +1,9 @@
 // lib/presentation/screens/04_upload/upload_image_screen.dart
 
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +12,8 @@ import '../../../config/theme/app_text_styles.dart';
 import '../../../config/routes/app_router.dart';
 import '../../../core/widgets/glass_header.dart';
 import '../../../core/widgets/bottom_nav_bar.dart';
+import '../../../core/services/api_service.dart';
+import '../../../core/models/diagnosis_model.dart';
 
 class UploadImageScreen extends StatefulWidget {
   const UploadImageScreen({super.key});
@@ -20,8 +24,10 @@ class UploadImageScreen extends StatefulWidget {
 
 class _UploadImageScreenState extends State<UploadImageScreen> {
   final ImagePicker _picker = ImagePicker();
-  File? _selectedImage;
+  XFile? _selectedImage; // Use XFile instead of File for web compatibility
   int _currentNavIndex = 2; // Assess tab
+  bool _isAnalyzing = false;
+  String? _errorMessage;
 
   Future<void> _pickImage(ImageSource source) async {
     try {
@@ -34,7 +40,7 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
 
       if (image != null) {
         setState(() {
-          _selectedImage = File(image.path);
+          _selectedImage = image; // Store XFile directly
         });
       }
     } catch (e) {
@@ -52,12 +58,105 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
     );
   }
 
-  void _analyzeImage() {
+  Future<void> _analyzeImage() async {
     if (_selectedImage == null) {
       _showError('Please select an image first');
       return;
     }
-    context.push(AppRouter.analyzing);
+
+    setState(() {
+      _isAnalyzing = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Call API to predict image (pass XFile directly)
+      final prediction = await ApiService.predictImage(_selectedImage!);
+
+      if (!mounted) return;
+
+      // Determine navigation based on confidence
+      // If confidence >= 0.90: go directly to result
+      // If confidence < 0.90: go to confirmation questions
+      if (prediction.confidence >= 0.90) {
+        // High confidence - navigate directly to result
+        context.push(
+          AppRouter.aiResult,
+          extra: {
+            'disease': prediction.disease,
+            'confidence': prediction.confidence,
+            'diagnosticResultId': prediction.diagnosticResultId,
+            'top3': prediction.top3,
+            'source': 'ai',
+            'userConfirmedSymptoms': null,
+            'imageFile': _selectedImage,
+          },
+        );
+      } else {
+        // Low confidence - go to confirmation questions
+        context.push(
+          AppRouter.imageConfirmation,
+          extra: {
+            'disease': prediction.disease,
+            'confidence': prediction.confidence,
+            'diagnosticResultId': prediction.diagnosticResultId,
+            'top3': prediction.top3,
+            'imageFile': _selectedImage,
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = e.toString();
+        _isAnalyzing = false;
+      });
+      _showError(_errorMessage ?? 'Failed to analyze image');
+    }
+  }
+
+  /// Build image widget that works on both mobile and web platforms
+  Widget _buildSelectedImageWidget() {
+    if (kIsWeb && _selectedImage != null) {
+      // On web, use Image.memory with file bytes
+      return FutureBuilder<Uint8List>(
+        future: _selectedImage!.readAsBytes(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError || !snapshot.hasData) {
+            return const Center(child: Text('Failed to load image'));
+          }
+          return Image.memory(
+            snapshot.data!,
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          );
+        },
+      );
+    } else if (!kIsWeb && _selectedImage != null) {
+      // On mobile, use Image.file if available, fallback to Image.memory
+      return FutureBuilder<Uint8List>(
+        future: _selectedImage!.readAsBytes(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError || !snapshot.hasData) {
+            return const Center(child: Text('Failed to load image'));
+          }
+          return Image.memory(
+            snapshot.data!,
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          );
+        },
+      );
+    }
+    return const SizedBox();
   }
 
   @override
@@ -85,6 +184,27 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
         padding: const EdgeInsets.fromLTRB(24, 32, 24, 120),
         child: Column(
           children: [
+            // Error Banner
+            if (_errorMessage != null)
+              FadeInDown(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 24),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.error.withOpacity(0.3)),
+                  ),
+                  child: Text(
+                    _errorMessage!,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.error,
+                    ),
+                  ),
+                ),
+              ),
+
             // Source Buttons
             FadeInDown(
               child: Row(
@@ -234,71 +354,66 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
         ),
         child: _selectedImage != null
             ? ClipRRect(
-          borderRadius: BorderRadius.circular(22),
-          child: Stack(
-            children: [
-              Image.file(
-                _selectedImage!,
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                top: 12,
-                right: 12,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedImage = null);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
+                borderRadius: BorderRadius.circular(22),
+                child: Stack(
+                  children: [
+                    _buildSelectedImageWidget(),
+                    Positioned(
+                      top: 12,
+                      right: 12,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() => _selectedImage = null);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(
+                            Icons.close_rounded,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.primary.withOpacity(0.1),
+                      shape: BoxShape.circle,
                     ),
                     child: const Icon(
-                      Icons.close_rounded,
-                      color: Colors.white,
-                      size: 20,
+                      Icons.cloud_upload_rounded,
+                      size: 50,
+                      color: AppColors.outline,
                     ),
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Image preview area',
+                    style: AppTextStyles.titleMedium.copyWith(
+                      color: AppColors.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Selected images will appear here for review',
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.outline,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.cloud_upload_rounded,
-                size: 50,
-                color: AppColors.outline,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Image preview area',
-              style: AppTextStyles.titleMedium.copyWith(
-                color: AppColors.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Selected images will appear here for review',
-              textAlign: TextAlign.center,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.outline,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -310,7 +425,8 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
     final tips = [
       {
         'title': 'Good lighting',
-        'description': 'Ensure the area is well-lit, preferably with natural light.',
+        'description':
+            'Ensure the area is well-lit, preferably with natural light.',
       },
       {
         'title': 'Close-up view',
@@ -356,9 +472,9 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
           ),
           const SizedBox(height: 24),
           ...tips.map((tip) => _buildTipItem(
-            tip['title']!,
-            tip['description']!,
-          )),
+                tip['title']!,
+                tip['description']!,
+              )),
         ],
       ),
     );
@@ -418,26 +534,38 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
       width: double.infinity,
       height: 56,
       child: ElevatedButton(
-        onPressed: _selectedImage != null ? _analyzeImage : null,
+        onPressed:
+            (_selectedImage != null && !_isAnalyzing) ? _analyzeImage : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: _selectedImage != null
+          backgroundColor: (_selectedImage != null && !_isAnalyzing)
               ? AppColors.primary
               : AppColors.surfaceContainerHigh,
-          foregroundColor: _selectedImage != null
+          foregroundColor: (_selectedImage != null && !_isAnalyzing)
               ? AppColors.onPrimary
               : AppColors.outlineVariant,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(9999),
           ),
-          elevation: _selectedImage != null ? 0 : 0,
+          elevation: 0,
         ),
-        child: Text(
-          'Analyze with AI',
-          style: AppTextStyles.labelLarge.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        child: _isAnalyzing
+            ? SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.onPrimary,
+                  ),
+                ),
+              )
+            : Text(
+                'Analyze with AI',
+                style: AppTextStyles.labelLarge.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
       ),
     );
   }

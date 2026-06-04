@@ -100,147 +100,147 @@
       ]
     }
   },
-  
-  "ConfirmationQuestions": {
-    "Acne": [
-      {
-        "QuestionCode": "CONF_AC_OILY",
-        "text": "Is your skin notably oily, especially in the T-zone (forehead, nose, and chin)?"
-      },
-      {
-        "QuestionCode": "CONF_AC_CYSTS",
-        "text": "Do you have deep, painful lumps or cysts under the skin that do not come to a head?"
-      },
-      {
-        "QuestionCode": "CONF_AC_BLACKHEADS",
-        "text": "Do you notice blackheads or whiteheads (clogged pores) along with the pimples?"
-      }
-    ],
-    "Psoriasis": [
-      {
-        "QuestionCode": "CONF_PS_SCALES",
-        "text": "Do you notice silvery-white scales on the red, raised patches of skin?"
-      },
-      {
-        "QuestionCode": "CONF_PS_JOINTS",
-        "text": "Do you experience any stiffness, swelling, or pain in your joints?"
-      },
-      {
-        "QuestionCode": "CONF_PS_NAILS",
-        "text": "Are there any pits, thickening, or discoloration in your fingernails or toenails?"
-      }
-    ],
-    "Eczema": [
-      {
-        "QuestionCode": "CONF_EC_ITCH",
-        "text": "Is the itching intense, particularly at night or after contact with certain fabrics or soaps?"
-      },
-      {
-        "QuestionCode": "CONF_EC_OOZE",
-        "text": "Do the affected areas ooze fluid or crust over, especially when scratched?"
-      },
-      {
-        "QuestionCode": "CONF_EC_CHRONIC",
-        "text": "Does the skin feel thick or leathery (lichenified) in areas that are frequently scratched?"
-      }
-    ],
-    "Melanoma": [
-      {
-        "QuestionCode": "CONF_ME_ASYMMETRY",
-        "text": "If you draw an imaginary line through the spot, do the two halves look noticeably different from each other?"
-      },
-      {
-        "QuestionCode": "CONF_ME_COLOR",
-        "text": "Does the spot contain multiple shades of color — such as tan, brown, black, red, white, or blue — within the same lesion?"
-      },
-      {
-        "QuestionCode": "CONF_ME_CHANGE",
-        "text": "Has the spot changed in size, shape, color, or started to bleed, itch, or crust over in recent weeks or months?"
-      }
-    ],
-    "Basal Cell Carcinoma": [
-      {
-        "QuestionCode": "CONF_BCC_PEARL",
-        "text": "Does the growth appear pearly, shiny, or translucent, sometimes with small visible blood vessels on its surface?"
-      },
-      {
-        "QuestionCode": "CONF_BCC_NONHEAL",
-        "text": "Has the sore or lesion failed to fully heal, or does it repeatedly bleed or crust over and then reopen?"
-      },
-      {
-        "QuestionCode": "CONF_BCC_SUN",
-        "text": "Is the lesion located on an area that has had significant sun exposure, such as the face, ears, neck, or scalp?"
-      }
-    ],
-    "Benign Keratosis-like Lesions": [
-      {
-        "QuestionCode": "CONF_BK_STUCKON",
-        "text": "Does the growth look or feel as if it has been stuck or pasted onto the skin rather than growing from within it?"
-      },
-      {
-        "QuestionCode": "CONF_BK_WAXY",
-        "text": "Is the surface of the lesion waxy, scaly, or rough, and is it tan, brown, or black in color?"
-      },
-      {
-        "QuestionCode": "CONF_BK_AGE",
-        "text": "Did this growth appear gradually during middle age or later, and have you noticed more of them over time?"
-      }
-    ],
-    "Seborrheic Keratoses": [
-      {
-        "QuestionCode": "CONF_SK_STUCKON",
-        "text": "Does the lesion have a distinctive 'stuck-on' appearance, as if it could be peeled off the skin?"
-      },
-      {
-        "QuestionCode": "CONF_SK_COLOR",
-        "text": "Is the lesion light tan, brown, or black with a waxy or greasy surface texture?"
-      },
-      {
-        "QuestionCode": "CONF_SK_MULTIPLE",
-        "text": "Do you have multiple similar growths appearing on your back, chest, face, or scalp?"
-      }
-    ],
-    "Warts and Molluscum": [
-      {
-        "QuestionCode": "CONF_WM_ROUGH",
-        "text": "Is the surface of the bump rough, grainy, or cauliflower-like to the touch, or alternatively smooth and dome-shaped with a small dimple in the center?"
-      },
-      {
-        "QuestionCode": "CONF_WM_DOTS",
-        "text": "Can you see tiny black dots inside the lesion, or does it have a small central indent or pit (umbilication)?"
-      },
-      {
-        "QuestionCode": "CONF_WM_SPREAD",
-        "text": "Have similar bumps appeared in clusters or spread to nearby skin areas, or to others who share close physical contact with you?"
-      }
-    ],
-    "Tinea Ringworm Candidiasis": [
-      {
-        "QuestionCode": "CONF_TC_RING",
-        "text": "Does the rash form a ring or circular shape with a raised, scaly, or redder outer edge and a clearer center?"
-      },
-      {
-        "QuestionCode": "CONF_TC_MOIST",
-        "text": "Is the rash located in a warm, moist area of the body such as the groin, underarms, between toes, or skin folds?"
-      },
-      {
-        "QuestionCode": "CONF_TC_CONTACT",
-        "text": "Have you recently had contact with animals, soil, shared locker rooms or pools, or someone with a similar rash?"
-      }
-    ],
-    "Melanocytic Nevi": [
-      {
-        "QuestionCode": "CONF_MN_STABLE",
-        "text": "Has this mole been present for a long time and remained essentially the same in size, shape, and color?"
-      },
-      {
-        "QuestionCode": "CONF_MN_UNIFORM",
-        "text": "Is the mole's color evenly distributed (uniform brown or tan) and does it have a smooth, well-defined border?"
-      },
-      {
-        "QuestionCode": "CONF_MN_SYMPTOMS",
-        "text": "Is the mole free of symptoms such as itching, bleeding, crusting, or pain?"
-      }
-    ]
-  }
+
+    "ConfirmationQuestions": {
+        "Acne": [
+            {
+                "QuestionCode": "CONF_AC_OILY",
+                "text": "Is your skin notably oily, especially in the T-zone (forehead, nose, and chin)?"
+            },
+            {
+                "QuestionCode": "CONF_AC_CYSTS",
+                "text": "Do you have deep, painful lumps or cysts under the skin that do not come to a head?"
+            },
+            {
+                "QuestionCode": "CONF_AC_BLACKHEADS",
+                "text": "Do you notice blackheads or whiteheads (clogged pores) along with the pimples?"
+            }
+        ],
+        "Psoriasis": [
+            {
+                "QuestionCode": "CONF_PS_SCALES",
+                "text": "Do you notice silvery-white scales on the red, raised patches of skin?"
+            },
+            {
+                "QuestionCode": "CONF_PS_JOINTS",
+                "text": "Do you experience any stiffness, swelling, or pain in your joints?"
+            },
+            {
+                "QuestionCode": "CONF_PS_NAILS",
+                "text": "Are there any pits, thickening, or discoloration in your fingernails or toenails?"
+            }
+        ],
+        "Eczema": [
+            {
+                "QuestionCode": "CONF_EC_ITCH",
+                "text": "Is the itching intense, particularly at night or after contact with certain fabrics or soaps?"
+            },
+            {
+                "QuestionCode": "CONF_EC_OOZE",
+                "text": "Do the affected areas ooze fluid or crust over, especially when scratched?"
+            },
+            {
+                "QuestionCode": "CONF_EC_CHRONIC",
+                "text": "Does the skin feel thick or leathery (lichenified) in areas that are frequently scratched?"
+            }
+        ],
+        "Melanoma": [
+            {
+                "QuestionCode": "CONF_ME_ASYMMETRY",
+                "text": "If you draw an imaginary line through the spot, do the two halves look noticeably different from each other?"
+            },
+            {
+                "QuestionCode": "CONF_ME_COLOR",
+                "text": "Does the spot contain multiple shades of color — such as tan, brown, black, red, white, or blue — within the same lesion?"
+            },
+            {
+                "QuestionCode": "CONF_ME_CHANGE",
+                "text": "Has the spot changed in size, shape, color, or started to bleed, itch, or crust over in recent weeks or months?"
+            }
+        ],
+        "Basal Cell Carcinoma": [
+            {
+                "QuestionCode": "CONF_BCC_PEARL",
+                "text": "Does the growth appear pearly, shiny, or translucent, sometimes with small visible blood vessels on its surface?"
+            },
+            {
+                "QuestionCode": "CONF_BCC_NONHEAL",
+                "text": "Has the sore or lesion failed to fully heal, or does it repeatedly bleed or crust over and then reopen?"
+            },
+            {
+                "QuestionCode": "CONF_BCC_SUN",
+                "text": "Is the lesion located on an area that has had significant sun exposure, such as the face, ears, neck, or scalp?"
+            }
+        ],
+        "Benign Keratosis-like Lesions": [
+            {
+                "QuestionCode": "CONF_BK_STUCKON",
+                "text": "Does the growth look or feel as if it has been stuck or pasted onto the skin rather than growing from within it?"
+            },
+            {
+                "QuestionCode": "CONF_BK_WAXY",
+                "text": "Is the surface of the lesion waxy, scaly, or rough, and is it tan, brown, or black in color?"
+            },
+            {
+                "QuestionCode": "CONF_BK_AGE",
+                "text": "Did this growth appear gradually during middle age or later, and have you noticed more of them over time?"
+            }
+        ],
+        "Seborrheic Keratoses": [
+            {
+                "QuestionCode": "CONF_SK_STUCKON",
+                "text": "Does the lesion have a distinctive 'stuck-on' appearance, as if it could be peeled off the skin?"
+            },
+            {
+                "QuestionCode": "CONF_SK_COLOR",
+                "text": "Is the lesion light tan, brown, or black with a waxy or greasy surface texture?"
+            },
+            {
+                "QuestionCode": "CONF_SK_MULTIPLE",
+                "text": "Do you have multiple similar growths appearing on your back, chest, face, or scalp?"
+            }
+        ],
+        "Warts Molluscum": [
+            {
+                "QuestionCode": "CONF_WM_ROUGH",
+                "text": "Is the surface of the bump rough, grainy, or cauliflower-like to the touch, or alternatively smooth and dome-shaped with a small dimple in the center?"
+            },
+            {
+                "QuestionCode": "CONF_WM_DOTS",
+                "text": "Can you see tiny black dots inside the lesion, or does it have a small central indent or pit (umbilication)?"
+            },
+            {
+                "QuestionCode": "CONF_WM_SPREAD",
+                "text": "Have similar bumps appeared in clusters or spread to nearby skin areas, or to others who share close physical contact with you?"
+            }
+        ],
+        "Tinea Ringworm Candidiasis": [
+            {
+                "QuestionCode": "CONF_TC_RING",
+                "text": "Does the rash form a ring or circular shape with a raised, scaly, or redder outer edge and a clearer center?"
+            },
+            {
+                "QuestionCode": "CONF_TC_MOIST",
+                "text": "Is the rash located in a warm, moist area of the body such as the groin, underarms, between toes, or skin folds?"
+            },
+            {
+                "QuestionCode": "CONF_TC_CONTACT",
+                "text": "Have you recently had contact with animals, soil, shared locker rooms or pools, or someone with a similar rash?"
+            }
+        ],
+        "Melanocytic Nevi": [
+            {
+                "QuestionCode": "CONF_MN_STABLE",
+                "text": "Has this mole been present for a long time and remained essentially the same in size, shape, and color?"
+            },
+            {
+                "QuestionCode": "CONF_MN_UNIFORM",
+                "text": "Is the mole's color evenly distributed (uniform brown or tan) and does it have a smooth, well-defined border?"
+            },
+            {
+                "QuestionCode": "CONF_MN_SYMPTOMS",
+                "text": "Is the mole free of symptoms such as itching, bleeding, crusting, or pain?"
+            }
+        ]
+    }
 }

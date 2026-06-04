@@ -11,7 +11,7 @@ namespace AI_Derma.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class HistoryController : ControllerBase
     {
         IUnitofWork unitofWork;

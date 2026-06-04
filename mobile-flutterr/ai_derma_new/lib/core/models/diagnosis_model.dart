@@ -181,3 +181,53 @@ class SaveAnswersRequest {
         'answers': answers.map((a) => a.toJson()).toList(),
       };
 }
+
+// ─── Image Prediction ─────────────────────────────────────────────────────────
+
+/// Represents a single prediction in the top 3 results.
+class Top3Result {
+  final String disease;
+  final double confidence;
+
+  Top3Result({required this.disease, required this.confidence});
+
+  factory Top3Result.fromJson(Map<String, dynamic> json) {
+    return Top3Result(
+      disease: json['disease'] as String? ?? '',
+      confidence: (json['confidence'] ?? 0).toDouble(),
+    );
+  }
+}
+
+/// Response from POST /api/diagnostic/predict-image
+/// Contains the primary diagnosis and confidence from the AI model.
+class ImagePredictionResponse {
+  final String disease;
+  final double confidence;
+  final int diagnosticResultId;
+  final List<Top3Result> top3;
+
+  ImagePredictionResponse({
+    required this.disease,
+    required this.confidence,
+    required this.diagnosticResultId,
+    this.top3 = const [],
+  });
+
+  factory ImagePredictionResponse.fromJson(Map<String, dynamic> json) {
+    List<Top3Result> top3List = [];
+    final rawTop3 = json['top3'];
+    if (rawTop3 is List) {
+      top3List = rawTop3
+          .map((e) => Top3Result.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+
+    return ImagePredictionResponse(
+      disease: json['disease'] as String? ?? '',
+      confidence: (json['confidence'] ?? 0).toDouble(),
+      diagnosticResultId: json['diagnosticResultId'] as int? ?? 0,
+      top3: top3List,
+    );
+  }
+}

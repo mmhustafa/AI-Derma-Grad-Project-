@@ -78,3 +78,63 @@ class MetadataOption {
     );
   }
 }
+
+/// Represents a confirmation question for symptom verification.
+/// Returned by GET /api/Metadata/confirmation/{diseaseName}
+class ConfirmationQuestion {
+  final String code;
+  final String text;
+
+  ConfirmationQuestion({
+    required this.code,
+    required this.text,
+  });
+
+  factory ConfirmationQuestion.fromJson(Map<String, dynamic> json) {
+    return ConfirmationQuestion(
+      code: json['questionCode'] as String? ?? json['code'] as String? ?? '',
+      text: json['text'] as String? ?? '',
+    );
+  }
+}
+
+/// Response from GET /api/Metadata/confirmation/{diseaseName}
+class ConfirmationQuestionsResponse {
+  final List<ConfirmationQuestion> questions;
+
+  ConfirmationQuestionsResponse({required this.questions});
+
+  factory ConfirmationQuestionsResponse.fromJson(dynamic json) {
+    List<ConfirmationQuestion> questions = [];
+
+    if (json is List) {
+      // Direct array response
+      questions = json
+          .map((q) => ConfirmationQuestion.fromJson(q as Map<String, dynamic>))
+          .toList();
+    } else if (json is Map<String, dynamic>) {
+      // Object wrapper with 'questions' field
+      if (json['questions'] is List) {
+        questions = (json['questions'] as List)
+            .map(
+                (q) => ConfirmationQuestion.fromJson(q as Map<String, dynamic>))
+            .toList();
+      } else {
+        // Try to parse the map entries as questions
+        json.entries.forEach((entry) {
+          if (entry.value is Map) {
+            questions.add(ConfirmationQuestion.fromJson(
+                entry.value as Map<String, dynamic>));
+          } else {
+            questions.add(ConfirmationQuestion(
+              code: entry.key,
+              text: entry.value.toString(),
+            ));
+          }
+        });
+      }
+    }
+
+    return ConfirmationQuestionsResponse(questions: questions);
+  }
+}

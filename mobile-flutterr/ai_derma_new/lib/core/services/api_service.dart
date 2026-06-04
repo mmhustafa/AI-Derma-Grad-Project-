@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import '../constants/api_constants.dart';
 import '../models/auth_model.dart';
 import '../models/chat_model.dart';
@@ -34,6 +36,33 @@ class ApiService {
       path: path,
       queryParameters: queryParams,
     );
+  }
+
+  /// Resolves the correct [MediaType] from a filename extension.
+  ///
+  /// This is critical for multipart uploads: ASP.NET Core reads
+  /// [IFormFile.ContentType] and forwards it to the AI model. If the
+  /// content-type is missing or 'application/octet-stream', the Python
+  /// FastAPI model cannot recognise the file as an image and returns a 500.
+  static MediaType _mediaTypeFromFilename(String filename) {
+    final ext = filename.toLowerCase().split('.').last;
+    switch (ext) {
+      case 'png':
+        return MediaType('image', 'png');
+      case 'gif':
+        return MediaType('image', 'gif');
+      case 'webp':
+        return MediaType('image', 'webp');
+      case 'bmp':
+        return MediaType('image', 'bmp');
+      case 'heic':
+      case 'heif':
+        return MediaType('image', 'heic');
+      case 'jpg':
+      case 'jpeg':
+      default:
+        return MediaType('image', 'jpeg');
+    }
   }
 
   static Map<String, String> _jsonHeaders() => {
@@ -366,6 +395,141 @@ class ApiService {
     }
   }
 
+  /// Predicts disease from an uploaded image using AI model.
+  /// Sends image as multipart/form-data.
+  ///
+  /// [imageFile] - Image file from image_picker (cross-platform)
+  ///
+  /// Returns [ImagePredictionResponse] containing disease name, confidence,
+  /// diagnosticResultId, and top 3 predictions.
+  ///
+  /// NOTE: The multipart field name MUST be 'Image' (capital I) to match the
+  /// backend DTO: `public IFormFile Image { get; set; }` in ImageDiagnosisRequestDto.
+  static Future<ImagePredictionResponse> predictImage(dynamic imageFile) async {
+    final url = _uri(ApiConstants.predictImage);
+
+    debugPrint('\n═════════════════════════════════════════════════════════');
+    debugPrint('[API] IMAGE PREDICTION REQUEST');
+    debugPrint('═════════════════════════════════════════════════════════');
+    debugPrint('[API] Endpoint URL: $url');
+    debugPrint('[API] Method: POST (multipart/form-data)');
+
+    try {
+      // ─── Read Image Bytes ──────────────────────────────────────────────────
+
+      late final List<int> imageBytes;
+      late final String imageFilename;
+
+      if (imageFile is XFile) {
+        imageBytes = await imageFile.readAsBytes();
+        imageFilename = imageFile.name.isNotEmpty ? imageFile.name : 'image.jpg';
+      } else if (imageFile is File) {
+        imageBytes = await imageFile.readAsBytes();
+        imageFilename = imageFile.path.split('/').last;
+      } else {
+        debugPrint('[API] ✗ Invalid image file type: ${imageFile.runtimeType}');
+        throw ApiException('Invalid image file format.');
+      }
+
+      debugPrint('[API] Image file name  : $imageFilename');
+      debugPrint('[API] Image byte size  : ${imageBytes.length} bytes');
+
+      // ─── Build Multipart Request ───────────────────────────────────────────
+
+      final request = http.MultipartRequest('POST', url);
+
+      // IMPORTANT: Field name must be 'Image' (capital I) to match the backend
+      // DTO property: `public IFormFile Image { get; set; }`
+      const String multipartFieldName = 'Image';
+
+      // Resolve MIME type from extension so ASP.NET Core sets the correct
+      // IFormFile.ContentType. Without this it defaults to
+      // 'application/octet-stream', which causes the FastAPI model to return
+      // a 500 because it cannot identify the file as an image.
+      final MediaType imageMediaType = _mediaTypeFromFilename(imageFilename);
+      final String multipartContentType =
+          '${imageMediaType.type}/${imageMediaType.subtype}';
+
+      debugPrint('[API] Multipart field name : $multipartFieldName');
+      debugPrint('[API] Multipart filename   : $imageFilename');
+      debugPrint('[API] Multipart content-type: $multipartContentType');
+
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          multipartFieldName, // ← 'Image' — matches backend IFormFile property
+          imageBytes,
+          filename: imageFilename,
+          contentType: imageMediaType, // ← critical: tells ASP.NET the MIME type
+        ),
+      );
+
+      // ─── Auth Header ───────────────────────────────────────────────────────
+
+      final token = await StorageService.getToken();
+      final hasToken = token != null && token.isNotEmpty;
+      if (hasToken) {
+        request.headers['Authorization'] = 'Bearer $token';
+      }
+
+      debugPrint('[API] Authorization header : ${hasToken ? 'Bearer [TOKEN]' : 'none (no token)'}');
+
+      // ─── Log Full Request Payload Summary ──────────────────────────────────
+
+      debugPrint('[API] Request payload keys:');
+      debugPrint('[API]   files → [${request.files.map((f) => '"${f.field}"').join(', ')}]');
+      debugPrint('[API]   fields → ${request.fields.isEmpty ? '(none)' : request.fields.keys.toList()}');
+      debugPrint('[API] Sending request...');
+
+      // ─── Send Request ──────────────────────────────────────────────────────
+
+      final streamedResponse =
+          await request.send().timeout(const Duration(seconds: 30));
+
+      // ─── Parse Response ────────────────────────────────────────────────────
+
+      final responseBody = await streamedResponse.stream.bytesToString();
+
+      debugPrint('\n[API] RESPONSE RECEIVED');
+      debugPrint('[API] Status Code  : ${streamedResponse.statusCode}');
+      debugPrint('[API] Response Body: $responseBody');
+
+      final httpResponse =
+          http.Response(responseBody, streamedResponse.statusCode);
+      final data = _parseResponse(httpResponse, ApiConstants.predictImage)
+          as Map<String, dynamic>;
+
+      final predictionResponse = ImagePredictionResponse.fromJson(data);
+
+      debugPrint('[API] ✓ Image prediction successful');
+      debugPrint('[API] Disease    : ${predictionResponse.disease}');
+      debugPrint('[API] Confidence : ${predictionResponse.confidence}');
+      debugPrint('[API] Result ID  : ${predictionResponse.diagnosticResultId}');
+      debugPrint('═════════════════════════════════════════════════════════\n');
+
+      return predictionResponse;
+    } on ApiException catch (e) {
+      debugPrint('[API] ✗ ApiException: ${e.message}');
+      debugPrint('═════════════════════════════════════════════════════════\n');
+      rethrow;
+    } on SocketException catch (e) {
+      debugPrint('[API] ✗ SocketException (predictImage): $e');
+      debugPrint('[API] Error: No internet connection or network unreachable');
+      debugPrint('═════════════════════════════════════════════════════════\n');
+      throw ApiException('No internet connection. Check your network.');
+    } on TimeoutException catch (e) {
+      debugPrint('[API] ✗ TimeoutException (predictImage): $e');
+      debugPrint('[API] Error: Request took longer than 30 seconds');
+      debugPrint('═════════════════════════════════════════════════════════\n');
+      throw ApiException('Image analysis timed out. Please try again.');
+    } catch (e) {
+      debugPrint('[API] ✗ Unexpected error (predictImage): $e');
+      debugPrint('[API] Error type : ${e.runtimeType}');
+      debugPrint('[API] Stack trace: ${StackTrace.current}');
+      debugPrint('═════════════════════════════════════════════════════════\n');
+      throw ApiException('Failed to analyze image. Please try again.');
+    }
+  }
+
   // ─── History ──────────────────────────────────────────────────────────────────
 
   /// Returns the current user's diagnostic history.
@@ -455,6 +619,36 @@ class ApiService {
     } catch (e) {
       debugPrint('[API] ✗ Unexpected error (metadata): $e');
       throw ApiException('Failed to load knowledge base metadata.');
+    }
+  }
+
+  /// Fetches confirmation questions for a specific disease diagnosis.
+  /// Used for symptom verification after image-based prediction.
+  static Future<ConfirmationQuestionsResponse> getConfirmationQuestions(
+      String diseaseName) async {
+    final endpoint = ApiConstants.confirmationQuestions(diseaseName);
+    debugPrint('[API] → GET $endpoint');
+
+    try {
+      final headers = await _authHeaders();
+      final response = await http
+          .get(_uri(endpoint), headers: headers)
+          .timeout(const Duration(seconds: 800));
+
+      final data = _parseResponse(response, endpoint);
+      debugPrint('[API] ✓ Confirmation questions loaded');
+      return ConfirmationQuestionsResponse.fromJson(data);
+    } on ApiException {
+      rethrow;
+    } on SocketException catch (e) {
+      debugPrint('[API] ✗ SocketException (confirmationQuestions): $e');
+      throw ApiException('No internet connection. Check your network.');
+    } on TimeoutException catch (e) {
+      debugPrint('[API] ✗ TimeoutException (confirmationQuestions): $e');
+      throw ApiException('Request timed out. Please try again.');
+    } catch (e) {
+      debugPrint('[API] ✗ Unexpected error (confirmationQuestions): $e');
+      throw ApiException('Failed to load confirmation questions.');
     }
   }
 

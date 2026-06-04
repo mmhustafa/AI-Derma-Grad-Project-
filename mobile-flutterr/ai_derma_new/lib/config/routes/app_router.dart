@@ -12,6 +12,7 @@ import '../../presentation/screens/04_upload/upload_image_screen.dart';
 import '../../presentation/screens/05_analyzing/analyzing_screen.dart';
 import '../../presentation/screens/06_assessment/assessment_question_screen.dart';
 import '../../presentation/screens/06_assessment/assessment_last_question_screen.dart';
+import '../../presentation/screens/06_assessment/image_confirmation_screen.dart';
 import '../../presentation/screens/07_history/history_screen.dart';
 import '../../presentation/screens/08_result/assessment_details_screen.dart';
 import '../../presentation/screens/08_result/ai_result_screen.dart';
@@ -33,6 +34,7 @@ class AppRouter {
   static const String analyzing = '/analyzing';
   static const String assessment = '/assessment';
   static const String assessmentLast = '/assessment-last'; // deprecated stub
+  static const String imageConfirmation = '/image-confirmation';
   static const String history = '/history';
   static const String assessmentDetails = '/assessment-details';
   static const String aiResult = '/ai-result';
@@ -49,8 +51,8 @@ class AppRouter {
     // ── Auth Guard ──────────────────────────────────────────────────────────────
     redirect: (context, state) async {
       final isLoggedIn = await StorageService.isLoggedIn();
-      final goingToLogin = state.matchedLocation == login ||
-          state.matchedLocation == register;
+      final goingToLogin =
+          state.matchedLocation == login || state.matchedLocation == register;
 
       // Not logged in and not heading to auth screens → force to login
       if (!isLoggedIn && !goingToLogin) return login;
@@ -127,6 +129,26 @@ class AppRouter {
         ),
       ),
 
+      // ── Image Confirmation (confirm symptoms after image analysis) ────────────
+      GoRoute(
+        path: imageConfirmation,
+        name: 'imageConfirmation',
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return _buildPageWithSlideTransition(
+            context: context,
+            state: state,
+            child: ImageConfirmationScreen(
+              disease: extra?['disease'] as String? ?? '',
+              confidence: extra?['confidence'] as double? ?? 0,
+              diagnosticResultId: extra?['diagnosticResultId'] as int? ?? 0,
+              top3: extra?['top3'] as List? ?? [],
+              imageFile: extra?['imageFile'],
+            ),
+          );
+        },
+      ),
+
       // ── Assessment (dynamic Q&A loop) ─────────────────────────────────────────
       GoRoute(
         path: assessment,
@@ -183,11 +205,22 @@ class AppRouter {
       GoRoute(
         path: aiResult,
         name: 'aiResult',
-        pageBuilder: (context, state) => _buildPageWithFadeTransition(
-          context: context,
-          state: state,
-          child: const AIResultScreen(),
-        ),
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return _buildPageWithFadeTransition(
+            context: context,
+            state: state,
+            child: AIResultScreen(
+              disease: extra?['disease'] as String? ?? '',
+              confidence: extra?['confidence'] as double? ?? 0,
+              diagnosticResultId: extra?['diagnosticResultId'] as int? ?? 0,
+              top3: extra?['top3'] as List? ?? [],
+              imageFile: extra?['imageFile'],
+              userConfirmedSymptoms: extra?['userConfirmedSymptoms'] as bool?,
+              source: extra?['source'] as String? ?? 'ai',
+            ),
+          );
+        },
       ),
 
       // ── Chat ──────────────────────────────────────────────────────────────────
@@ -329,8 +362,8 @@ class ErrorScreen extends StatelessWidget {
                 icon: const Icon(Icons.home_rounded),
                 label: const Text('Go to Home'),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 32, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 ),
               ),
             ],

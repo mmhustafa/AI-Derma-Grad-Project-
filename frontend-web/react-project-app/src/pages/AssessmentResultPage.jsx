@@ -6,77 +6,124 @@ import { diagnosticAPI } from "../services/api";
 import "../assets/styles/assessmentResult.css";
 import "../assets/styles/components.css";
 
+/** Always return a trimmed string, or fallback if value is not a usable string */
+function safeStr(value, fallback = "") {
+  return typeof value === "string" && value.trim() !== "" ? value.trim() : fallback;
+}
+
+/** Extract a readable error message from an axios error */
+function extractErrorMessage(err) {
+  const raw = err?.response?.data;
+  if (!raw) return err?.message || "An error occurred.";
+  if (typeof raw === "string") return raw;
+  return safeStr(raw.message) || safeStr(raw.title) || safeStr(raw.detail) || "Unable to load disease details.";
+}
+
 export default function AssessmentResultPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state || {};
+  const state    = location.state || {};
 
-  const diseaseName = state.diseaseName || "Unknown diagnosis";
-  const sourceType = state.source || "ai";
-  const answers = state.answers || [];
-  const userConfirmedSymptoms = state.userConfirmedSymptoms ?? null;
-  const originalConfidence = state.confidence || 0;
+  // ── Route state ─────────────────────────────────────────────────────────────
+  const diseaseName               = safeStr(state.diseaseName, "Unknown diagnosis");
+  const sourceType                = safeStr(state.source, "ai");
+  const userConfirmedSymptoms     = state.userConfirmedSymptoms ?? null;
+  const originalConfidence        = typeof state.confidence === "number" ? state.confidence : 0;
   const imageConfirmationRequired = state.imageConfirmationRequired ?? false;
+  const fromHistory               = state.fromHistory === true;
 
-  const [diseaseDetails, setDiseaseDetails] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [uploadedImage, setUploadedImage] = useState(null);
+  // ── Local state ─────────────────────────────────────────────────────────────
+  const [diseaseDetails,  setDiseaseDetails]  = useState(null);
+  const [loading,         setLoading]         = useState(false);
+  const [error,           setError]           = useState("");
+  const [uploadedImage,   setUploadedImage]   = useState(null);
   const [showChatTooltip, setShowChatTooltip] = useState(false);
 
+  // ── Data fetching ────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (!state.diseaseName) {
+    if (!state.diseaseName) return;
+
+    // ── History path: all data already returned by GET /History/diagnostic/{id} ──
+    if (fromHistory) {
+      const raw     = state.historyDetail || {};
+      // The response nests disease info under raw.disease
+      const disease = (raw.disease && typeof raw.disease === "object") ? raw.disease : {};
+
+      // Show the Cloudinary photo returned by the history endpoint
+      if (typeof raw.imageUrl === "string" && raw.imageUrl.trim()) {
+        setUploadedImage(raw.imageUrl.trim());
+      }
+
+      // Populate disease details directly from the nested disease object
+      setDiseaseDetails({
+        diseaseName:      safeStr(disease.diseaseName,      state.diseaseName),
+        description:      safeStr(disease.description,      ""),
+        severityLevel:    safeStr(disease.severityLevel,    ""),
+        careInstructions: safeStr(disease.careInstructions, ""),
+      });
+
+      // All data is already in the response — no extra API call needed
       return;
     }
 
+    // ── Normal (non-history) path ────────────────────────────────────────────
     setLoading(true);
     setError("");
 
     diagnosticAPI
       .getDiseaseDetails(state.diseaseName)
       .then((response) => {
-        setDiseaseDetails(response.data);
+        const data = response?.data;
+        if (data && typeof data === "object" && !Array.isArray(data)) {
+          setDiseaseDetails(data);
+        }
       })
       .catch((err) => {
-        setError(err.response?.data || "Unable to load disease details.");
+        setError(extractErrorMessage(err));
       })
       .finally(() => {
         setLoading(false);
       });
 
-    // Try to get uploaded image from sessionStorage
-    const storedImage = sessionStorage.getItem('uploadedImagePreview');
-    if (storedImage) {
-      setUploadedImage(storedImage);
-    }
-  }, [diseaseName]);
+    // Restore uploaded image preview from sessionStorage
+    const storedImage = sessionStorage.getItem("uploadedImagePreview");
+    if (storedImage) setUploadedImage(storedImage);
+  }, [diseaseName]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ── Safe display values ──────────────────────────────────────────────────────
+  const diagnosisLabel = safeStr(diseaseDetails?.diseaseName, diseaseName);
+  const description    = safeStr(diseaseDetails?.description,    "No disease information available.");
+  const severityLevel  = safeStr(diseaseDetails?.severityLevel,  "Unknown");
 
-  // Calculate displayed confidence
-  const isHighConfidence = originalConfidence >= 0.90;
-  const displayedConfidence = userConfirmedSymptoms === true ? Math.max(originalConfidence, 0.90) : originalConfidence;
+  const rawCare   = diseaseDetails?.careInstructions;
+  const nextSteps =
+    typeof rawCare === "string" && rawCare.trim() !== ""
+      ? rawCare.split(".").map((s) => s.trim()).filter(Boolean)
+      : [];
+
+  // ── Confidence helpers ───────────────────────────────────────────────────────
+  const isHighConfidence = originalConfidence >= 0.9;
+  const displayedConfidence =
+    userConfirmedSymptoms === true
+      ? Math.max(originalConfidence, 0.9)
+      : originalConfidence;
 
   const getConfidenceColor = () => {
-    const percentage = displayedConfidence * 100;
-    if (percentage >= 80) return '#10b981'; // green
-    if (percentage >= 60) return '#84cc16'; // lime
-    if (percentage >= 40) return '#eab308'; // yellow
-    if (percentage >= 20) return '#f97316'; // orange
-    return '#ef4444'; // red
+    const p = displayedConfidence * 100;
+    if (p >= 80) return "#10b981";
+    if (p >= 60) return "#84cc16";
+    if (p >= 40) return "#eab308";
+    if (p >= 20) return "#f97316";
+    return "#ef4444";
   };
 
-  const diagnosisLabel = diseaseDetails?.diseaseName || diseaseName;
-  const description = diseaseDetails?.description || "No disease information available.";
-  const nextSteps = diseaseDetails?.careInstructions
-    ? diseaseDetails.careInstructions
-        .split(".")
-        .map((item) => item.trim())
-        .filter(Boolean)
-    : [];
-  const confidenceValue = sourceType === "expert" ? "-" : (displayedConfidence * 100).toFixed(1);
-  const metricWidth = sourceType === "expert" ? "0%" : `${displayedConfidence * 100}%`;
+  const confidenceValue =
+    sourceType === "expert" ? "-" : `${(displayedConfidence * 100).toFixed(1)}%`;
+  const metricWidth =
+    sourceType === "expert" ? "0%" : `${displayedConfidence * 100}%`;
   const badgeText = sourceType === "expert" ? "Expert System" : "Verified AI";
 
+  // ── Render ───────────────────────────────────────────────────────────────────
   return (
     <div className="result-page">
       <Navbar />
@@ -89,26 +136,48 @@ export default function AssessmentResultPage() {
           </div>
 
           <div className="result-header-actions">
-            <button
-              className="result-btn result-btn-ghost"
-              type="button"
-              onClick={() => window.print()}
-              id="result-download-pdf"
-            >
-              Download PDF
-            </button>
-            <button
-              className="result-btn result-btn-secondary"
-              type="button"
-              onClick={() => navigate('/confirmation', { state: { diseaseName, confidence: originalConfidence, diagnosticResultId: state.diagnosticResultId, top3: state.top3 || [] } })}
-              id="result-confirmation-questions-btn"
-            >
-              Confirmation Questions
-            </button>
+            {fromHistory ? (
+              <button
+                className="result-btn result-btn-ghost"
+                type="button"
+                onClick={() => navigate("/history")}
+                id="result-back-to-history"
+              >
+                ← Back to History
+              </button>
+            ) : (
+              <button
+                className="result-btn result-btn-ghost"
+                type="button"
+                onClick={() => window.print()}
+                id="result-download-pdf"
+              >
+                Download PDF
+              </button>
+            )}
+            {!fromHistory && (
+              <button
+                className="result-btn result-btn-secondary"
+                type="button"
+                onClick={() =>
+                  navigate("/confirmation", {
+                    state: {
+                      diseaseName,
+                      confidence: originalConfidence,
+                      diagnosticResultId: state.diagnosticResultId,
+                      top3: state.top3 || [],
+                    },
+                  })
+                }
+                id="result-confirmation-questions-btn"
+              >
+                Confirmation Questions
+              </button>
+            )}
           </div>
 
           {/* Floating Chat Button */}
-          <div 
+          <div
             className="floating-chat-button"
             onMouseEnter={() => setShowChatTooltip(true)}
             onMouseLeave={() => setShowChatTooltip(false)}
@@ -124,27 +193,30 @@ export default function AssessmentResultPage() {
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </button>
-            {showChatTooltip && <span className="floating-chat-tooltip">Ask about the result</span>}
+            {showChatTooltip && (
+              <span className="floating-chat-tooltip">Ask about the result</span>
+            )}
           </div>
         </div>
 
         {loading && <div className="info-banner">Loading disease details…</div>}
-        {error && <div className="error-banner">{error}</div>}
+        {error   && <div className="error-banner">{error}</div>}
 
-        {/* Confirmation Status Banner - Only show when user explicitly answered NO */}
+        {/* Confirmation Status Banner */}
         {userConfirmedSymptoms === false && (
           <div className="confirmation-status-banner not-confirmed">
             <div className="confirmation-status-content">
               <span className="confirmation-status-icon">⚠</span>
               <span className="confirmation-status-text">
-                User answers do not match the AI prediction. The assessment could not be confidently confirmed and further clinical evaluation may be required.
+                User answers do not match the AI prediction. The assessment could not be
+                confidently confirmed and further clinical evaluation may be required.
               </span>
             </div>
           </div>
         )}
 
         <section className="result-grid">
-          {/* Left — Diagnosis */}
+          {/* Left — Diagnosis card */}
           <div className="result-card">
             <div className="result-card-top">
               <div>
@@ -159,35 +231,46 @@ export default function AssessmentResultPage() {
               </div>
             </div>
 
+            {/* Confidence bar */}
             <div className="result-metric">
               <div className="result-metric-label">
                 AI Confidence Score
-                {userConfirmedSymptoms === true && originalConfidence < 0.90 && (
-                  <span className="confidence-note">(Increased with confirmed symptoms)</span>
+                {userConfirmedSymptoms === true && originalConfidence < 0.9 && (
+                  <span className="confidence-note"> (Increased with confirmed symptoms)</span>
                 )}
               </div>
               <div className="result-metric-row">
                 <div className="result-metric-bar">
-                  <div className="result-metric-fill" style={{ width: metricWidth, backgroundColor: getConfidenceColor() }} />
+                  <div
+                    className="result-metric-fill"
+                    style={{ width: metricWidth, backgroundColor: getConfidenceColor() }}
+                  />
                 </div>
                 <div className="result-metric-value" style={{ color: getConfidenceColor() }}>
                   {confidenceValue}
-                  {userConfirmedSymptoms === true && originalConfidence < 0.90 && (
-                    <span className="original-confidence">(was {(originalConfidence * 100).toFixed(1)}%)</span>
+                  {userConfirmedSymptoms === true && originalConfidence < 0.9 && (
+                    <span className="original-confidence">
+                      {" "}(was {(originalConfidence * 100).toFixed(1)}%)
+                    </span>
                   )}
                 </div>
               </div>
             </div>
 
+            {/* Uploaded / history image */}
             <div className="result-image-card" aria-label="Uploaded skin area analysis">
               {uploadedImage ? (
                 <img
                   src={uploadedImage}
-                  alt="Uploaded skin image for analysis"
+                  alt="Skin image for analysis"
                   className="result-uploaded-image"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit" }}
                 />
               ) : sourceType === "expert" ? (
-                <div className="result-no-photo" style={{ padding: "2rem 1rem", textAlign: "center", color: "#fff", fontWeight: 700 }}>
+                <div
+                  className="result-no-photo"
+                  style={{ padding: "2rem 1rem", textAlign: "center", color: "#fff", fontWeight: 700 }}
+                >
                   No photo
                 </div>
               ) : (
@@ -223,18 +306,20 @@ export default function AssessmentResultPage() {
               )}
             </div>
 
+            {/* Severity & Source pills */}
             <div className="result-pill-grid">
               <div className="result-pill">
                 <div className="result-pill-label">Severity</div>
-                <div className="result-pill-value">{diseaseDetails?.severityLevel || "Unknown"}</div>
+                <div className="result-pill-value">{severityLevel}</div>
               </div>
               <div className="result-pill">
                 <div className="result-pill-label">Source</div>
-                <div className="result-pill-value">{sourceType === "expert" ? "Expert System" : "AI Model"}</div>
+                <div className="result-pill-value">
+                  {sourceType === "expert" ? "Expert System" : "AI Model"}
+                </div>
               </div>
             </div>
 
-            {/* High Confidence Message */}
             {isHighConfidence && !imageConfirmationRequired && (
               <div className="high-confidence-notice">
                 <div className="notice-icon"></div>
@@ -242,7 +327,8 @@ export default function AssessmentResultPage() {
                   <strong>High Confidence Prediction</strong>
                   <p>This prediction has sufficient confidence and does not require symptom verification.</p>
                   <p className="confidence-optional-note">
-                    💡 Optionally, you can answer confirmation questions to increase your confidence even further in this diagnosis.
+                    💡 Optionally, you can answer confirmation questions to increase your confidence
+                    even further in this diagnosis.
                   </p>
                 </div>
               </div>
@@ -273,13 +359,16 @@ export default function AssessmentResultPage() {
                       <span className="nextstep-title">{step}</span>
                       <span className="nextstep-desc">Review this guidance with a clinician if needed.</span>
                     </span>
-                    <span className="nextstep-arrow" aria-hidden="true">
-                      ›
-                    </span>
+                    <span className="nextstep-arrow" aria-hidden="true">›</span>
                   </button>
                 ))
               ) : (
-                <button className="nextstep" type="button" onClick={() => navigate("/assistant")}> 
+                <button
+                  className="nextstep"
+                  type="button"
+                  onClick={() => navigate("/assistant")}
+                  id="nextstep-1"
+                >
                   <span className="nextstep-num">1</span>
                   <span className="nextstep-main">
                     <span className="nextstep-title">Continue monitoring symptoms</span>
@@ -291,9 +380,9 @@ export default function AssessmentResultPage() {
             </div>
           </div>
         </section>
-        
       </main>
+
       <Footer />
     </div>
-  ); 
+  );
 }

@@ -38,31 +38,37 @@ export default function HomePage() {
     }
   };
 
-  // Helper function to format date
+  // Helper function to format date — always returns a string
   const formatDate = (dateString) => {
-    if (!dateString) return "Unknown date";
+    if (!dateString || typeof dateString === "object") return "Unknown date";
     try {
       const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "Unknown date";
       return date.toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",
         day: "numeric",
       });
     } catch {
-      return dateString;
+      return "Unknown date";
     }
   };
 
-  // Helper function to get status display
+  // Helper function to get status display — ALWAYS returns a string
   const getStatusDisplay = (status) => {
+    if (!status || typeof status !== "string") return "In Progress";
     const statusMap = {
       completed: "Completed",
       pending: "Pending Review",
       analyzing: "Analysis Phase",
       processing: "Processing",
     };
-    return statusMap[status?.toLowerCase()] || status || "In Progress";
+    return statusMap[status.toLowerCase()] || status;
   };
+
+  // Helper to always return a display string from any value
+  const safeStr = (val, fallback = "") =>
+    typeof val === "string" && val.trim() !== "" ? val.trim() : fallback;
 
   return (
     <div
@@ -238,10 +244,10 @@ export default function HomePage() {
                     </div>
                     <div className="history-item-content">
                       <div className="history-item-title">
-                        {item.disease || item.diagnosis || `Assessment #${item.id?.slice(-4) || "0000"}`}
+                        {safeStr(item.disease) || safeStr(item.diagnosis) || `Assessment #${safeStr(item.id, "0000").slice(-4)}`}
                       </div>
                       <div className="history-item-meta">
-                        {formatDate(item.diagnosisDate || item.createdAt)} • {getStatusDisplay(item.status)}
+                        {formatDate(item.diagnosisDate || item.createdAt)} • {getStatusDisplay(typeof item.status === "string" ? item.status : "")}
                       </div>
                     </div>
                     <svg

@@ -50,6 +50,7 @@ class ApiConstants {
   static const String nextStep = '/api/Diagnostic/next-step';
   static const String diseaseDetails = '/api/Diagnostic/disease-details';
   static const String saveAnswers = '/api/Diagnostic/save-answers';
+  static const String predictImage = '/api/diagnostic/predict-image';
 
   // ─── History ───────────────────────────────────────────────────────────────────
   static const String historyList = '/api/History/diagnostics';

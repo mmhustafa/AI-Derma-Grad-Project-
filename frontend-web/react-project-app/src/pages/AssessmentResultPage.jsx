@@ -103,10 +103,7 @@ export default function AssessmentResultPage() {
 
   // ── Confidence helpers ───────────────────────────────────────────────────────
   const isHighConfidence = originalConfidence >= 0.9;
-  const displayedConfidence =
-    userConfirmedSymptoms === true
-      ? Math.max(originalConfidence, 0.9)
-      : originalConfidence;
+  const displayedConfidence = originalConfidence; // Always use original confidence, never modify based on user selections
 
   const getConfidenceColor = () => {
     const p = displayedConfidence * 100;
@@ -235,9 +232,6 @@ export default function AssessmentResultPage() {
             <div className="result-metric">
               <div className="result-metric-label">
                 AI Confidence Score
-                {userConfirmedSymptoms === true && originalConfidence < 0.9 && (
-                  <span className="confidence-note"> (Increased with confirmed symptoms)</span>
-                )}
               </div>
               <div className="result-metric-row">
                 <div className="result-metric-bar">
@@ -248,11 +242,6 @@ export default function AssessmentResultPage() {
                 </div>
                 <div className="result-metric-value" style={{ color: getConfidenceColor() }}>
                   {confidenceValue}
-                  {userConfirmedSymptoms === true && originalConfidence < 0.9 && (
-                    <span className="original-confidence">
-                      {" "}(was {(originalConfidence * 100).toFixed(1)}%)
-                    </span>
-                  )}
                 </div>
               </div>
             </div>

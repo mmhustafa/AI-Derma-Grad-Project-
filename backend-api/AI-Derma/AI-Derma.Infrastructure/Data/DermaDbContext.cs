@@ -22,6 +22,11 @@ namespace AI_Derma.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Make Email unique for ApplicationUser
+            modelBuilder.Entity<ApplicationUser>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             modelBuilder.Entity<Feedback>()
                 .HasOne(f => f.Result)
                 .WithOne(r => r.Feedback)

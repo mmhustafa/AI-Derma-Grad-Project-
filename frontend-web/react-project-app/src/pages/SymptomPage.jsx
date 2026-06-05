@@ -77,6 +77,8 @@ export default function SymptomPage() {
   };
 
   useEffect(() => {
+    // Clear old image preview from sessionStorage to prevent showing previous prediction's image
+    sessionStorage.removeItem('uploadedImagePreview');
     fetchNextStep([]);
   }, []);
 

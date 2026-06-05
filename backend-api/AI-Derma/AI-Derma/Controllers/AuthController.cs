@@ -37,6 +37,13 @@ namespace AI_Derma.Controllers
                 return BadRequest(string.Join(" ", errors));
             }
 
+            // Check if email already exists
+            var existingUser = await userManager.FindByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("Email is already registered.");
+            }
+
             var user = new ApplicationUser
             {
                 UserName = model.UserName,

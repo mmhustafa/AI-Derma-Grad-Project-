@@ -12,7 +12,7 @@ namespace AI_Derma.Infrastructure.Repos
     /// <summary>
     /// Calls the Expert System FastAPI service (port 8002) — /kb/next-step
     /// </summary>
-    public class ExpertSystemService : IExpertSystemService
+    public class ExpertSystemService : IFastAPIService
     {
         private readonly HttpClient _httpClient;
 
@@ -28,6 +28,11 @@ namespace AI_Derma.Infrastructure.Repos
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var result = await response.Content.ReadFromJsonAsync<FastApiNextStepResponse>(options);
             return result ?? new FastApiNextStepResponse();
+        }
+
+        Task<ImageDiagnosisResponseDto> IFastAPIService.PredictImageAsync(IFormFile file)
+        {
+            throw new NotImplementedException();
         }
     }
 }

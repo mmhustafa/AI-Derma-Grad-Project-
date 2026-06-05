@@ -71,9 +71,9 @@ export default function HistoryPage() {
           ? rawConf <= 1 ? rawConf : rawConf / 100
           : 0;
 
-      // sourceType: "AI Model" → "ai",  "KB" → "expert"
+      // sourceType: "AI Model" → "ai",  "Expert System" → "expert"
       const resolvedSource =
-        typeof detail.sourceType === "string" && detail.sourceType.toLowerCase().includes("kb")
+        typeof detail.sourceType === "string" && detail.sourceType.toLowerCase().includes("expert")
           ? "expert"
           : "ai";
 
@@ -101,10 +101,12 @@ export default function HistoryPage() {
       diagnostics.map((d) => {
         const pct = toPercent(d.confidenceScore);
         const risk = pct > 80 ? "low" : pct > 50 ? "moderate" : "high";
+        const isExpertSystem = typeof d.sourceType === "string" && d.sourceType.toLowerCase().includes("expert");
         return {
           id: d.id,
           risk,
-          title: d.sourceType === "KB" ? "Knowledge Base Diagnosis" : "AI Analysis",
+          sourceType: d.sourceType,  // Store for conditional rendering
+          title: isExpertSystem ? "Knowledge Base Diagnosis" : "AI Analysis",
           time: d.createdAt ? new Date(d.createdAt).toLocaleString() : "—",
           confidencePct: pct,          // number 0‑100
           confidenceLabel: `${pct}%`,  // display string
@@ -220,7 +222,9 @@ export default function HistoryPage() {
               {filtered.map((it) => (
                 <article key={it.id} className="history-card2">
                   <div className="history-card2-top">
-                    <div className={`risk-pill ${it.risk}`}>{it.badge}</div>
+                    {!it.sourceType || !it.sourceType.toLowerCase().includes("expert") ? (
+                      <div className={`risk-pill ${it.risk}`}>{it.badge}</div>
+                    ) : null}
                     <button className="dots" type="button" aria-label="More options">⋮</button>
                   </div>
 
@@ -229,31 +233,33 @@ export default function HistoryPage() {
                     <div className="history-card2-time">{it.time}</div>
                   </div>
 
-                  {/* ── Confidence bar ── */}
-                  <div className="history-meter">
-                    <div className="history-meter-row">
-                      <span className="history-meter-label">Confidence score</span>
-                      <span
-                        className="history-meter-value"
-                        style={{
-                          color:
-                            it.risk === "high"
-                              ? "#ef4444"
-                              : it.risk === "moderate"
-                              ? "#f59e0b"
-                              : "#22c55e",
-                        }}
-                      >
-                        {it.confidenceLabel}
-                      </span>
+                  {/* ── Confidence bar (only for AI cards, not expert system) ── */}
+                  {!it.sourceType || !it.sourceType.toLowerCase().includes("expert") ? (
+                    <div className="history-meter">
+                      <div className="history-meter-row">
+                        <span className="history-meter-label">Confidence score</span>
+                        <span
+                          className="history-meter-value"
+                          style={{
+                            color:
+                              it.risk === "high"
+                                ? "#ef4444"
+                                : it.risk === "moderate"
+                                ? "#f59e0b"
+                                : "#22c55e",
+                          }}
+                        >
+                          {it.confidenceLabel}
+                        </span>
+                      </div>
+                      <div className="history-meter-track">
+                        <div
+                          className={`history-meter-fill ${it.risk}`}
+                          style={{ width: `${it.confidencePct}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="history-meter-track">
-                      <div
-                        className={`history-meter-fill ${it.risk}`}
-                        style={{ width: `${it.confidencePct}%` }}
-                      />
-                    </div>
-                  </div>
+                  ) : null}
 
                   {it.disease && (
                     <p className="history-note">Diagnosed: <strong>{it.disease}</strong></p>
